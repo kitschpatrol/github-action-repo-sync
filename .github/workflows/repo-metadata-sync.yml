@@ -1,19 +1,35 @@
-name: Repo Metadata Sync
-
+name: Overwrite GitHub repo metadata with info from package.json
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
 jobs:
-  repo_sync:
+  build:
+    name: Sync Metadata
     runs-on: ubuntu-latest
+    env:
+      IS_VALID_TOKEN: false
+      HAS_PACKAGE: false
+
     steps:
-      - name: Fetching Local Repository
-        uses: actions/checkout@v3
-      - name: Repo Sync
-        uses: kbrashears5/github-action-repo-sync@v2.0.0
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate Access Token
+        run: |
+          if [ -z ${{ secrets.PERSONAL_ACCESS_TOKEN }} ]; then
+            echo "❌ This action requires a Personal Access token to run"
+            echo "IS_VALID_TOKEN=false" >> $GITHUB_ENV
+            else
+            echo "🔑 Authenticated with Personal Access token"
+            echo "IS_VALID_TOKEN=true" >> $GITHUB_ENV
+          fi
+
+      - name: Sync Package info to GitHub
+        if: env.IS_VALID_TOKEN == 'true' && env.HAS_PACKAGE == 'true'
+        uses: kitschpatrol/github-action-repo-sync@v2.0.0
         with:
           TYPE: npm
           PATH: metadata.json
-          TOKEN: ${{ secrets.ACTIONS }}
+          TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

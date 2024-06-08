@@ -1,16 +1,16 @@
 {
-    "description": "Github Action to sync repo metadata from code to repo",
-    "homepage": "https://github.com/kbrashears5/github-action-repo-sync",
-    "keywords": [
-        "sync",
-        "repo",
-        "metadata",
-        "npm",
-        "nuget",
-        "description",
-        "homepage",
-        "website",
-        "topics",
-        "keywords"
-    ]
+  "description": "Github Action to sync repo metadata from code to repo",
+  "homepage": "https://github.com/kitschpatrol/github-action-repo-sync",
+  "keywords": [
+    "sync",
+    "repo",
+    "metadata",
+    "npm",
+    "nuget",
+    "description",
+    "homepage",
+    "website",
+    "topics",
+    "keywords"
+  ]
 }
