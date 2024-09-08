@@ -12,7 +12,7 @@ inputs:
     description: 'Relative file path to the repos metadata file'
     required: true
   TOKEN:
-    description: "Personal access token with Repo privileges"
+    description: 'Personal access token with Repo privileges'
     required: true
   GIT_EMAIL:
     description: 'Email to use for Git'
