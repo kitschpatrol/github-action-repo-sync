@@ -2,14 +2,11 @@
 	"name": "github-action-repo-sync",
 	"type": "module",
 	"description": "GitHub Action to sync repo metadata from package.json to GitHub.",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/github-action-repo-sync.git"
-	},
+	"repository": "github:kitschpatrol/github-action-repo-sync",
 	"homepage": "https://github.com/kitschpatrol/github-action-repo-sync",
 	"license": "MIT",
 	"private": true,
-	"packageManager": "pnpm@9.9.0",
+	"packageManager": "pnpm@9.10.0",
 	"engines": {
 		"node": ">=22.0.0",
 		"pnpm": ">=9.0.0"
@@ -20,11 +17,12 @@
 		"repo"
 	],
 	"scripts": {
-		"fix": "pnpm prettier-config --fix",
-		"lint": "pnpm prettier-config --check",
+		"clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
+		"fix": "prettier-config --fix",
+		"lint": "prettier-config --check",
 		"updatetag": "git tag -d v2 && git push origin :v2 && git tag -a v2 -m '' && git push origin v2"
 	},
 	"devDependencies": {
-		"@kitschpatrol/prettier-config": "^4.7.5"
+		"@kitschpatrol/prettier-config": "^4.7.9"
 	}
 }
