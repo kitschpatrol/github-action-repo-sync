@@ -6,7 +6,7 @@
 	"homepage": "https://github.com/kitschpatrol/github-action-repo-sync",
 	"license": "MIT",
 	"private": true,
-	"packageManager": "pnpm@9.10.0",
+	"packageManager": "pnpm@9.14.3",
 	"engines": {
 		"node": ">=22.0.0",
 		"pnpm": ">=9.0.0"
@@ -23,6 +23,6 @@
 		"updatetag": "git tag -d v2 && git push origin :v2 && git tag -a v2 -m '' && git push origin v2"
 	},
 	"devDependencies": {
-		"@kitschpatrol/prettier-config": "^4.7.9"
+		"@kitschpatrol/prettier-config": "^4.7.12"
 	}
 }
