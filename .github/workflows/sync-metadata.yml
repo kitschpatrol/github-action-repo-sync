@@ -1,4 +1,4 @@
-name: Overwrite GitHub repo metadata with info from package.json
+name: Sync metadata to GitHub
 on:
   push:
     branches: [main]
