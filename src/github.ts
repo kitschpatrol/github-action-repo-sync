@@ -1,7 +1,10 @@
 import { context } from '@actions/github'
 import { Octokit } from '@octokit/rest'
-import { RepoMetadata } from './metadata'
+import type { RepoMetadata } from './metadata'
 
+/**
+ * Update repository metadata on GitHub
+ */
 export async function updateRepository(metadata: RepoMetadata, token: string) {
 	const octokit = new Octokit({
 		auth: token,
@@ -10,9 +13,10 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 	const { owner, repo } = context.repo
 	const { data } = await octokit.repos.get({ owner, repo })
 
+	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const currentRepoMetadata = data as RepoMetadata
 
-	const updates: Promise<any>[] = []
+	const updates: Array<Promise<unknown>> = []
 
 	// Update description
 	if (
@@ -24,9 +28,9 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 
 		updates.push(
 			octokit.repos.update({
+				description: metadata.description,
 				owner,
 				repo,
-				description: metadata.description,
 			}),
 		)
 	}
@@ -43,9 +47,9 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 
 		updates.push(
 			octokit.repos.update({
+				homepage: metadata.homepage,
 				owner,
 				repo,
-				homepage: metadata.homepage,
 			}),
 		)
 	}
@@ -62,9 +66,9 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 
 		updates.push(
 			octokit.repos.replaceAllTopics({
+				names: metadata.topics,
 				owner,
 				repo,
-				names: metadata.topics,
 			}),
 		)
 	}

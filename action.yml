@@ -1,5 +1,5 @@
 name: 'Repo Metadata Sync'
-description: 'Github Action to sync repo metadata (description, url, and topics) from code to repo'
+description: 'GitHub Action to sync repo metadata (description, url, and topics) from code to repo'
 author: 'kitschpatrol'
 branding:
   icon: 'upload-cloud'

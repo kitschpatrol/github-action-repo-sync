@@ -1,19 +1,8 @@
 {
 	"name": "github-action-repo-sync",
-	"type": "module",
-	"description": "GitHub Action to sync repo metadata from package.json to GitHub.",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/kitschpatrol/github-action-repo-sync.git"
-	},
-	"homepage": "https://github.com/kitschpatrol/github-action-repo-sync",
-	"license": "MIT",
+	"version": "3.0.0",
 	"private": true,
-	"packageManager": "pnpm@10.11.1",
-	"engines": {
-		"node": ">=20.0.0",
-		"pnpm": ">=10.0.0"
-	},
+	"description": "GitHub Action to sync repo metadata from package.json to GitHub.",
 	"keywords": [
 		"github-action",
 		"action",
@@ -21,18 +10,38 @@
 		"project",
 		"metadata"
 	],
+	"homepage": "https://github.com/kitschpatrol/github-action-repo-sync",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kitschpatrol/github-action-repo-sync.git"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Eric Mika",
+		"email": "eric@ericmika.com",
+		"url": "https://ericmika.com"
+	},
+	"type": "module",
 	"scripts": {
-		"build": "rolldown src/index.ts -d dist -m",
+		"build": "rolldown src/index.ts -d dist -p node -f esm",
 		"clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
+		"fix": "kpi fix",
+		"lint": "kpi lint",
 		"updatetag": "git tag -d v3 && git push origin :v3 && git tag -a v3 -m '' && git push origin v3"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.11.1",
 		"@actions/github": "^6.0.1",
+		"@kitschpatrol/shared-config": "^5.4.2",
 		"@octokit/rest": "^22.0.0",
 		"@types/node": "^20.19.0",
 		"confbox": "^0.2.2",
 		"rolldown": "1.0.0-beta.12",
 		"typescript": "~5.8.3"
+	},
+	"packageManager": "pnpm@10.11.1",
+	"engines": {
+		"node": ">=20.0.0",
+		"pnpm": ">=10.0.0"
 	}
 }

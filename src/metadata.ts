@@ -1,11 +1,26 @@
-import fs from 'fs/promises'
-import path from 'path'
 import { parseJSON, parseTOML, parseYAML } from 'confbox'
+import fs from 'node:fs/promises'
+import path from 'node:path'
 
 export type RepoMetadata = {
 	description?: string
 	homepage?: string
 	topics?: string[]
+}
+
+// Type guard asserts string or undefined and returns undefined if not
+function isString(value: unknown): string | undefined {
+	if (typeof value === 'string') {
+		return value
+	}
+	return undefined
+}
+
+function isStringArray(value: unknown): string[] | undefined {
+	if (Array.isArray(value)) {
+		return value.every((v) => typeof v === 'string') ? value : undefined
+	}
+	return undefined
 }
 
 function merge<T>(target: T, source: Partial<T>): T {
@@ -20,57 +35,69 @@ function merge<T>(target: T, source: Partial<T>): T {
 	return result
 }
 
+// eslint-disable-next-line ts/no-explicit-any
 async function loadFile(filePath: string): Promise<Record<string, any> | undefined> {
 	try {
 		const content = await fs.readFile(filePath, 'utf8')
 		const type = path.extname(filePath).slice(1)
 		switch (type) {
-			case 'json':
-				return parseJSON(content)
-			case 'toml':
-				return parseTOML(content)
-			case 'yaml':
-				return parseYAML(content)
-			default:
+			case 'json': {
+				return await parseJSON(content)
+			}
+			case 'toml': {
+				return await parseTOML(content)
+			}
+			case 'yaml': {
+				return await parseYAML(content)
+			}
+			default: {
 				console.error(`Unsupported file type: ${type}`)
 				return undefined
+			}
 		}
-	} catch (error) {
+	} catch {
 		return undefined
 	}
 }
 
+/**
+ * Parse metadata from project config files
+ */
 export async function parseMetadata(): Promise<RepoMetadata> {
+	/* eslint-disable-next-line ts/no-explicit-any */
 	const parsers: Record<string, (content: Record<string, any>) => RepoMetadata> = {
-		'pyproject.toml': (content) => ({
-			description: content.project?.description ?? content.tool?.poetry?.description,
-			homepage:
-				content.project?.urls?.homepage ??
-				content.project?.urls?.repository ??
-				content.tool?.poetry?.homepage ??
-				content.tool?.poetry?.repository,
-			topics: content.project?.keywords ?? content.tool?.poetry?.keywords,
-		}),
-		'package.json': (content) => ({
-			description: content.description,
-			homepage: content.homepage ?? content.repository?.url,
-			topics: content.keywords,
-		}),
+		/* eslint-disable ts/no-unsafe-member-access */
 		'metadata.json': (content) => ({
-			description: content.description,
-			homepage: content.homepage ?? content.url ?? content.repository ?? content.website,
-			topics: content.keywords ?? content.tags ?? content.topics,
-		}),
-		'metadata.yml': (content) => ({
-			description: content.description,
-			homepage: content.homepage ?? content.url ?? content.repository ?? content.website,
-			topics: content.keywords ?? content.tags ?? content.topics,
+			description: isString(content.description),
+			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics),
 		}),
 		'metadata.yaml': (content) => ({
-			description: content.description,
-			homepage: content.homepage ?? content.url ?? content.repository ?? content.website,
-			topics: content.keywords ?? content.tags ?? content.topics,
+			description: isString(content.description),
+			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics),
 		}),
+		'metadata.yml': (content) => ({
+			description: isString(content.description),
+			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics),
+		}),
+		'package.json': (content) => ({
+			description: isString(content.description),
+			homepage: isString(content.homepage ?? content.repository?.url),
+			topics: isStringArray(content.keywords),
+		}),
+		'pyproject.toml': (content) => ({
+			description: isString(content.project?.description ?? content.tool?.poetry?.description),
+			homepage: isString(
+				content.project?.urls?.homepage ??
+					content.project?.urls?.repository ??
+					content.tool?.poetry?.homepage ??
+					content.tool?.poetry?.repository,
+			),
+			topics: isStringArray(content.project?.keywords ?? content.tool?.poetry?.keywords),
+		}),
+		/* eslint-enable ts/no-unsafe-member-access */
 	}
 
 	let repoMetadata: RepoMetadata = {
