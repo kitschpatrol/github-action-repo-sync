@@ -1,4 +1,4 @@
-Fork of [kbrashears5's github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) with a minor tweak to skip setting the website if it's just a link to the GitHub repo.
+Fork of [kbrashears5's github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync) reimplemented in TypeScript, revised to support additional project file types, and with a check to skip setting the website if it's just a link to the GitHub repo.
 
 Original readme below:
 

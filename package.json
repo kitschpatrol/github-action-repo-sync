@@ -2,27 +2,37 @@
 	"name": "github-action-repo-sync",
 	"type": "module",
 	"description": "GitHub Action to sync repo metadata from package.json to GitHub.",
-	"repository": "github:kitschpatrol/github-action-repo-sync",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kitschpatrol/github-action-repo-sync.git"
+	},
 	"homepage": "https://github.com/kitschpatrol/github-action-repo-sync",
 	"license": "MIT",
 	"private": true,
-	"packageManager": "pnpm@9.14.3",
+	"packageManager": "pnpm@10.11.1",
 	"engines": {
-		"node": ">=22.0.0",
-		"pnpm": ">=9.0.0"
+		"node": ">=20.0.0",
+		"pnpm": ">=10.0.0"
 	},
 	"keywords": [
 		"github-action",
 		"action",
-		"repo"
+		"repo",
+		"project",
+		"metadata"
 	],
 	"scripts": {
+		"build": "rolldown src/index.ts -d dist -m",
 		"clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
-		"fix": "prettier-config --fix",
-		"lint": "prettier-config --check",
-		"updatetag": "git tag -d v2 && git push origin :v2 && git tag -a v2 -m '' && git push origin v2"
+		"updatetag": "git tag -d v3 && git push origin :v3 && git tag -a v3 -m '' && git push origin v3"
 	},
 	"devDependencies": {
-		"@kitschpatrol/prettier-config": "^4.7.12"
+		"@actions/core": "^1.11.1",
+		"@actions/github": "^6.0.1",
+		"@octokit/rest": "^22.0.0",
+		"@types/node": "^20.19.0",
+		"confbox": "^0.2.2",
+		"rolldown": "1.0.0-beta.12",
+		"typescript": "~5.8.3"
 	}
 }
