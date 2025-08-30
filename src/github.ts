@@ -19,10 +19,7 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 	const updates: Array<Promise<unknown>> = []
 
 	// Update description
-	if (
-		metadata.description !== undefined &&
-		metadata.description !== currentRepoMetadata.description
-	) {
+	if (metadata.description !== currentRepoMetadata.description) {
 		console.log(`\nDescription: ${metadata.description}`)
 		console.log(`Updating description for [${owner}/${repo}]`)
 
@@ -36,18 +33,18 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 	}
 
 	// Update homepage
-	// Skip if it's just a GitHub repo URL (likely redundant)
-	if (
-		metadata.homepage !== undefined &&
-		currentRepoMetadata.homepage !== metadata.homepage &&
-		!metadata.homepage.startsWith(`https://github.com/${owner}/${repo}`)
-	) {
-		console.log(`\nWebsite: ${metadata.homepage}`)
+	// Special case: Skip if it's just a GitHub repo URL (likely redundant)
+	const resolvedHomepage = metadata.homepage?.startsWith(`https://github.com/${owner}/${repo}`)
+		? undefined
+		: metadata.homepage
+
+	if (currentRepoMetadata.homepage !== resolvedHomepage) {
+		console.log(`\nWebsite: ${resolvedHomepage}`)
 		console.log(`Updating homepage for [${owner}/${repo}]`)
 
 		updates.push(
 			octokit.repos.update({
-				homepage: metadata.homepage,
+				homepage: resolvedHomepage,
 				owner,
 				repo,
 			}),
@@ -55,12 +52,7 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 	}
 
 	// Update topics
-	if (
-		metadata.topics !== undefined &&
-		Array.isArray(metadata.topics) &&
-		metadata.topics.length > 0 &&
-		metadata.topics.sort().join(',') !== currentRepoMetadata.topics?.sort().join(',')
-	) {
+	if (metadata.topics.sort().join(',') !== currentRepoMetadata.topics.sort().join(',')) {
 		console.log(`\nTopics: ${JSON.stringify(metadata.topics)}`)
 		console.log(`Updating topics for [${owner}/${repo}]`)
 

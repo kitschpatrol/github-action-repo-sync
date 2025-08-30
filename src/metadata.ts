@@ -3,9 +3,9 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 export type RepoMetadata = {
-	description?: string
-	homepage?: string
-	topics?: string[]
+	description: string | undefined
+	homepage: string | undefined
+	topics: string[]
 }
 
 // Type guard asserts string or undefined and returns undefined if not
@@ -70,23 +70,24 @@ export async function parseMetadata(): Promise<RepoMetadata> {
 		'metadata.json': (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
-			topics: isStringArray(content.keywords ?? content.tags ?? content.topics),
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics) ?? [],
 		}),
 		'metadata.yaml': (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
-			topics: isStringArray(content.keywords ?? content.tags ?? content.topics),
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics) ?? [],
 		}),
 		'metadata.yml': (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
-			topics: isStringArray(content.keywords ?? content.tags ?? content.topics),
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics) ?? [],
 		}),
 		'package.json': (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.repository?.url),
-			topics: isStringArray(content.keywords),
+			topics: isStringArray(content.keywords) ?? [],
 		}),
+		// eslint-disable-next-line complexity
 		'pyproject.toml': (content) => ({
 			description: isString(content.project?.description ?? content.tool?.poetry?.description),
 			homepage: isString(
@@ -95,7 +96,7 @@ export async function parseMetadata(): Promise<RepoMetadata> {
 					content.tool?.poetry?.homepage ??
 					content.tool?.poetry?.repository,
 			),
-			topics: isStringArray(content.project?.keywords ?? content.tool?.poetry?.keywords),
+			topics: isStringArray(content.project?.keywords ?? content.tool?.poetry?.keywords) ?? [],
 		}),
 		/* eslint-enable ts/no-unsafe-member-access */
 	}
@@ -103,7 +104,7 @@ export async function parseMetadata(): Promise<RepoMetadata> {
 	let repoMetadata: RepoMetadata = {
 		description: undefined,
 		homepage: undefined,
-		topics: undefined,
+		topics: [],
 	}
 
 	for (const [filePath, parser] of Object.entries(parsers)) {
