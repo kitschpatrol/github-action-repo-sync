@@ -1,6 +1,6 @@
 {
 	"name": "github-action-repo-sync",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"private": true,
 	"description": "GitHub Action to sync repo metadata from package.json to GitHub.",
 	"keywords": [
