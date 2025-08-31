@@ -1,0 +1,12 @@
+{
+	"name": "priority-test",
+	"version": "1.0.0",
+	"type": "module",
+	"description": "Package description override",
+	"author": "Test Author",
+	"repository": {
+		"type": "git",
+		"url": "https://package-repo.com"
+	},
+	"keywords": ["package-keyword"]
+}

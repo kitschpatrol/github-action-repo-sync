@@ -1,0 +1,13 @@
+{
+	"name": "test-package",
+	"version": "1.0.0",
+	"description": "A test package for GitHub action sync",
+	"keywords": ["test", "github-action", "metadata"],
+	"homepage": "https://example.com",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/test/test-repo"
+	},
+	"author": "Test Author",
+	"type": "module"
+}

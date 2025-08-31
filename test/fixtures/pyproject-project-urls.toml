@@ -1,0 +1,7 @@
+[project]
+name = "project-urls-test"
+description = "Testing project.urls fallback"
+keywords = ["project", "urls", "fallback"]
+
+[project.urls]
+repository = "https://project-repository-fallback.com"

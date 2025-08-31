@@ -1,0 +1,9 @@
+{
+	"name": "repo-fallback-test",
+	"description": "Test repository URL fallback",
+	"keywords": ["fallback", "test"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/test/fallback-repo"
+	}
+}

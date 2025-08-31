@@ -1,0 +1,12 @@
+{
+	"name": "package-repository-test",
+	"version": "1.0.0",
+	"type": "module",
+	"description": "Testing package.json repository.url fallback",
+	"keywords": ["repository", "url", "fallback"],
+	"author": "Test Author",
+	"repository": {
+		"type": "git",
+		"url": "https://package-repository-fallback.com"
+	}
+}

@@ -1,0 +1,7 @@
+[tool.poetry]
+name = "poetry-project"
+version = "0.1.0"
+description = "Poetry project description"
+homepage = "https://poetry-home.com"
+repository = "https://github.com/test/poetry"
+keywords = ["poetry", "test"]

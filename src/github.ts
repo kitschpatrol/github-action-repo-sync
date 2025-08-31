@@ -52,7 +52,7 @@ export async function updateRepository(metadata: RepoMetadata, token: string) {
 	}
 
 	// Update topics
-	if (metadata.topics.sort().join(',') !== currentRepoMetadata.topics.sort().join(',')) {
+	if ([...metadata.topics].sort().join(',') !== [...currentRepoMetadata.topics].sort().join(',')) {
 		console.log(`\nTopics: ${JSON.stringify(metadata.topics)}`)
 		console.log(`Updating topics for [${owner}/${repo}]`)
 

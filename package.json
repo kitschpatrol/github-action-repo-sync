@@ -27,6 +27,7 @@
 		"clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
 		"fix": "kpi fix",
 		"lint": "kpi lint",
+		"test": "vitest",
 		"updatetag": "git tag -d v3 && git push origin :v3 && git tag -a v3 -m '' && git push origin v3"
 	},
 	"devDependencies": {
@@ -37,7 +38,8 @@
 		"@types/node": "^20.19.11",
 		"confbox": "^0.2.2",
 		"rolldown": "1.0.0-beta.12",
-		"typescript": "~5.8.3"
+		"typescript": "~5.8.3",
+		"vitest": "^3.2.4"
 	},
 	"packageManager": "pnpm@10.15.0",
 	"engines": {

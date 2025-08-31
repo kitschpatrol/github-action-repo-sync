@@ -1,0 +1,8 @@
+[project]
+name = "test-project"
+description = "Python project description"
+keywords = ["python", "test"]
+
+[project.urls]
+homepage = "https://python-home.com"
+repository = "https://github.com/test/python"

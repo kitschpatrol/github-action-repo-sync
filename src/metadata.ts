@@ -47,7 +47,8 @@ async function loadFile(filePath: string): Promise<Record<string, any> | undefin
 			case 'toml': {
 				return await parseTOML(content)
 			}
-			case 'yaml': {
+			case 'yaml':
+			case 'yml': {
 				return await parseYAML(content)
 			}
 			default: {

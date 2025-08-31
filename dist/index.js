@@ -18091,8 +18091,8 @@ var require_dist_node$3 = __commonJS({ "node_modules/.pnpm/@octokit+auth-token@4
 } });
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+core@5.2.1/node_modules/@octokit/core/dist-node/index.js
-var require_dist_node$2 = __commonJS({ "node_modules/.pnpm/@octokit+core@5.2.1/node_modules/@octokit/core/dist-node/index.js"(exports, module) {
+//#region node_modules/.pnpm/@octokit+core@5.2.2/node_modules/@octokit/core/dist-node/index.js
+var require_dist_node$2 = __commonJS({ "node_modules/.pnpm/@octokit+core@5.2.2/node_modules/@octokit/core/dist-node/index.js"(exports, module) {
 	var __defProp$2 = Object.defineProperty;
 	var __getOwnPropDesc$2 = Object.getOwnPropertyDescriptor;
 	var __getOwnPropNames$2 = Object.getOwnPropertyNames;
@@ -18121,10 +18121,17 @@ var require_dist_node$2 = __commonJS({ "node_modules/.pnpm/@octokit+core@5.2.1/n
 	var import_request = require_dist_node$5();
 	var import_graphql = require_dist_node$4();
 	var import_auth_token = require_dist_node$3();
-	var VERSION$10 = "5.2.1";
+	var VERSION$10 = "5.2.2";
 	var noop$1 = () => {};
 	var consoleWarn$1 = console.warn.bind(console);
 	var consoleError$1 = console.error.bind(console);
+	function createLogger$1(logger = {}) {
+		if (typeof logger.debug !== "function") logger.debug = noop$1;
+		if (typeof logger.info !== "function") logger.info = noop$1;
+		if (typeof logger.warn !== "function") logger.warn = consoleWarn$1;
+		if (typeof logger.error !== "function") logger.error = consoleError$1;
+		return logger;
+	}
 	var userAgentTrail$1 = `octokit-core.js/${VERSION$10} ${(0, import_universal_user_agent.getUserAgent)()}`;
 	var Octokit$2 = class {
 		static {
@@ -18178,12 +18185,7 @@ var require_dist_node$2 = __commonJS({ "node_modules/.pnpm/@octokit+core@5.2.1/n
 			if (options.timeZone) requestDefaults.headers["time-zone"] = options.timeZone;
 			this.request = import_request.request.defaults(requestDefaults);
 			this.graphql = (0, import_graphql.withCustomRequest)(this.request).defaults(requestDefaults);
-			this.log = Object.assign({
-				debug: noop$1,
-				info: noop$1,
-				warn: consoleWarn$1,
-				error: consoleError$1
-			}, options.log);
+			this.log = createLogger$1(options.log);
 			this.hook = hook$2;
 			if (!options.authStrategy) if (!options.auth) this.auth = async () => ({ type: "unauthenticated" });
 			else {
@@ -18209,8 +18211,8 @@ var require_dist_node$2 = __commonJS({ "node_modules/.pnpm/@octokit+core@5.2.1/n
 } });
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@10.4.1_@octokit+core@5.2.1/node_modules/@octokit/plugin-rest-endpoint-methods/dist-node/index.js
-var require_dist_node$1 = __commonJS({ "node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@10.4.1_@octokit+core@5.2.1/node_modules/@octokit/plugin-rest-endpoint-methods/dist-node/index.js"(exports, module) {
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@10.4.1_@octokit+core@5.2.2/node_modules/@octokit/plugin-rest-endpoint-methods/dist-node/index.js
+var require_dist_node$1 = __commonJS({ "node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@10.4.1_@octokit+core@5.2.2/node_modules/@octokit/plugin-rest-endpoint-methods/dist-node/index.js"(exports, module) {
 	var __defProp$1 = Object.defineProperty;
 	var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
 	var __getOwnPropNames$1 = Object.getOwnPropertyNames;
@@ -19532,8 +19534,8 @@ var require_dist_node$1 = __commonJS({ "node_modules/.pnpm/@octokit+plugin-rest-
 } });
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-paginate-rest@9.2.2_@octokit+core@5.2.1/node_modules/@octokit/plugin-paginate-rest/dist-node/index.js
-var require_dist_node = __commonJS({ "node_modules/.pnpm/@octokit+plugin-paginate-rest@9.2.2_@octokit+core@5.2.1/node_modules/@octokit/plugin-paginate-rest/dist-node/index.js"(exports, module) {
+//#region node_modules/.pnpm/@octokit+plugin-paginate-rest@9.2.2_@octokit+core@5.2.2/node_modules/@octokit/plugin-paginate-rest/dist-node/index.js
+var require_dist_node = __commonJS({ "node_modules/.pnpm/@octokit+plugin-paginate-rest@9.2.2_@octokit+core@5.2.2/node_modules/@octokit/plugin-paginate-rest/dist-node/index.js"(exports, module) {
 	var __defProp = Object.defineProperty;
 	var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 	var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -20471,9 +20473,9 @@ var RequestError = class extends Error {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+request@10.0.2/node_modules/@octokit/request/dist-bundle/index.js
+//#region node_modules/.pnpm/@octokit+request@10.0.3/node_modules/@octokit/request/dist-bundle/index.js
 var import_fast_content_type_parse = __toESM$1(require_fast_content_type_parse(), 1);
-var VERSION$6 = "0.0.0-development";
+var VERSION$6 = "10.0.3";
 var defaults_default = { headers: { "user-agent": `octokit-request.js/${VERSION$6} ${getUserAgent()}` } };
 function isPlainObject(value) {
 	if (typeof value !== "object" || value === null) return false;
@@ -20727,14 +20729,21 @@ var createTokenAuth = function createTokenAuth2(token) {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+core@7.0.2/node_modules/@octokit/core/dist-src/version.js
-const VERSION$4 = "7.0.2";
+//#region node_modules/.pnpm/@octokit+core@7.0.3/node_modules/@octokit/core/dist-src/version.js
+const VERSION$4 = "7.0.3";
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+core@7.0.2/node_modules/@octokit/core/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+core@7.0.3/node_modules/@octokit/core/dist-src/index.js
 const noop = () => {};
 const consoleWarn = console.warn.bind(console);
 const consoleError = console.error.bind(console);
+function createLogger(logger = {}) {
+	if (typeof logger.debug !== "function") logger.debug = noop;
+	if (typeof logger.info !== "function") logger.info = noop;
+	if (typeof logger.warn !== "function") logger.warn = consoleWarn;
+	if (typeof logger.error !== "function") logger.error = consoleError;
+	return logger;
+}
 const userAgentTrail = `octokit-core.js/${VERSION$4} ${getUserAgent()}`;
 var Octokit$1 = class {
 	static VERSION = VERSION$4;
@@ -20782,12 +20791,7 @@ var Octokit$1 = class {
 		if (options.timeZone) requestDefaults.headers["time-zone"] = options.timeZone;
 		this.request = request.defaults(requestDefaults);
 		this.graphql = withCustomRequest(this.request).defaults(requestDefaults);
-		this.log = Object.assign({
-			debug: noop,
-			info: noop,
-			warn: consoleWarn,
-			error: consoleError
-		}, options.log);
+		this.log = createLogger(options.log);
 		this.hook = hook$2;
 		if (!options.authStrategy) if (!options.auth) this.auth = async () => ({ type: "unauthenticated" });
 		else {
@@ -20817,11 +20821,11 @@ var Octokit$1 = class {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.2/node_modules/@octokit/plugin-request-log/dist-src/version.js
+//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-request-log/dist-src/version.js
 const VERSION$3 = "6.0.0";
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.2/node_modules/@octokit/plugin-request-log/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-request-log/dist-src/index.js
 function requestLog(octokit) {
 	octokit.hook.wrap("request", (request$3, options) => {
 		octokit.log.debug("request", options);
@@ -20842,27 +20846,30 @@ function requestLog(octokit) {
 requestLog.VERSION = VERSION$3;
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-paginate-rest@13.0.1_@octokit+core@7.0.2/node_modules/@octokit/plugin-paginate-rest/dist-bundle/index.js
+//#region node_modules/.pnpm/@octokit+plugin-paginate-rest@13.1.1_@octokit+core@7.0.3/node_modules/@octokit/plugin-paginate-rest/dist-bundle/index.js
 var VERSION$2 = "0.0.0-development";
 function normalizePaginatedListResponse(response) {
 	if (!response.data) return {
 		...response,
 		data: []
 	};
-	const responseNeedsNormalization = "total_count" in response.data && !("url" in response.data);
+	const responseNeedsNormalization = ("total_count" in response.data || "total_commits" in response.data) && !("url" in response.data);
 	if (!responseNeedsNormalization) return response;
 	const incompleteResults = response.data.incomplete_results;
 	const repositorySelection = response.data.repository_selection;
 	const totalCount = response.data.total_count;
+	const totalCommits = response.data.total_commits;
 	delete response.data.incomplete_results;
 	delete response.data.repository_selection;
 	delete response.data.total_count;
+	delete response.data.total_commits;
 	const namespaceKey = Object.keys(response.data)[0];
 	const data = response.data[namespaceKey];
 	response.data = data;
 	if (typeof incompleteResults !== "undefined") response.data.incomplete_results = incompleteResults;
 	if (typeof repositorySelection !== "undefined") response.data.repository_selection = repositorySelection;
 	response.data.total_count = totalCount;
+	response.data.total_commits = totalCommits;
 	return response;
 }
 function iterator(octokit, route, parameters) {
@@ -20881,6 +20888,16 @@ function iterator(octokit, route, parameters) {
 			});
 			const normalizedResponse = normalizePaginatedListResponse(response);
 			url = ((normalizedResponse.headers.link || "").match(/<([^<>]+)>;\s*rel="next"/) || [])[1];
+			if (!url && "total_commits" in normalizedResponse.data) {
+				const parsedUrl = new URL(normalizedResponse.url);
+				const params = parsedUrl.searchParams;
+				const page = parseInt(params.get("page") || "1", 10);
+				const per_page = parseInt(params.get("per_page") || "250", 10);
+				if (page * per_page < normalizedResponse.data.total_commits) {
+					params.set("page", String(page + 1));
+					url = parsedUrl.toString();
+				}
+			}
 			return { value: normalizedResponse };
 		} catch (error$1) {
 			if (error$1.status !== 409) throw error$1;
@@ -20919,11 +20936,11 @@ function paginateRest(octokit) {
 paginateRest.VERSION = VERSION$2;
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.2/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/version.js
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/version.js
 const VERSION$1 = "16.0.0";
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.2/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/generated/endpoints.js
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/generated/endpoints.js
 const Endpoints = {
 	actions: {
 		addCustomLabelsToSelfHostedRunnerForOrg: ["POST /orgs/{org}/actions/runners/{runner_id}/labels"],
@@ -22146,7 +22163,7 @@ const Endpoints = {
 var endpoints_default = Endpoints;
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.2/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/endpoints-to-methods.js
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/endpoints-to-methods.js
 const endpointMethodsMap = /* @__PURE__ */ new Map();
 for (const [scope, endpoints] of Object.entries(endpoints_default)) for (const [methodName, endpoint$2] of Object.entries(endpoints)) {
 	const [route, defaults, decorations] = endpoint$2;
@@ -22239,7 +22256,7 @@ function decorate(octokit, scope, methodName, defaults, decorations) {
 }
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.2/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/index.js
 function restEndpointMethods(octokit) {
 	const api$1 = endpointsToMethods(octokit);
 	return { rest: api$1 };
@@ -22277,7 +22294,7 @@ async function updateRepository(metadata, token) {
 	});
 	const currentRepoMetadata = data;
 	const updates = [];
-	if (metadata.description !== void 0 && metadata.description !== currentRepoMetadata.description) {
+	if (metadata.description !== currentRepoMetadata.description) {
 		console.log(`\nDescription: ${metadata.description}`);
 		console.log(`Updating description for [${owner}/${repo}]`);
 		updates.push(octokit.repos.update({
@@ -22286,16 +22303,17 @@ async function updateRepository(metadata, token) {
 			repo
 		}));
 	}
-	if (metadata.homepage !== void 0 && currentRepoMetadata.homepage !== metadata.homepage && !metadata.homepage.startsWith(`https://github.com/${owner}/${repo}`)) {
-		console.log(`\nWebsite: ${metadata.homepage}`);
+	const resolvedHomepage = metadata.homepage?.startsWith(`https://github.com/${owner}/${repo}`) ? void 0 : metadata.homepage;
+	if (currentRepoMetadata.homepage !== resolvedHomepage) {
+		console.log(`\nWebsite: ${resolvedHomepage}`);
 		console.log(`Updating homepage for [${owner}/${repo}]`);
 		updates.push(octokit.repos.update({
-			homepage: metadata.homepage,
+			homepage: resolvedHomepage,
 			owner,
 			repo
 		}));
 	}
-	if (metadata.topics !== void 0 && Array.isArray(metadata.topics) && metadata.topics.length > 0 && metadata.topics.sort().join(",") !== currentRepoMetadata.topics?.sort().join(",")) {
+	if ([...metadata.topics].sort().join(",") !== [...currentRepoMetadata.topics].sort().join(",")) {
 		console.log(`\nTopics: ${JSON.stringify(metadata.topics)}`);
 		console.log(`Updating topics for [${owner}/${repo}]`);
 		updates.push(octokit.repos.replaceAllTopics({
@@ -24090,7 +24108,8 @@ async function loadFile(filePath) {
 		switch (type) {
 			case "json": return await x(content);
 			case "toml": return await Q(content);
-			case "yaml": return await mr(content);
+			case "yaml":
+			case "yml": return await mr(content);
 			default: {
 				console.error(`Unsupported file type: ${type}`);
 				return void 0;
@@ -24108,33 +24127,33 @@ async function parseMetadata() {
 		"metadata.json": (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
-			topics: isStringArray(content.keywords ?? content.tags ?? content.topics)
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics) ?? []
 		}),
 		"metadata.yaml": (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
-			topics: isStringArray(content.keywords ?? content.tags ?? content.topics)
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics) ?? []
 		}),
 		"metadata.yml": (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.url ?? content.repository ?? content.website),
-			topics: isStringArray(content.keywords ?? content.tags ?? content.topics)
+			topics: isStringArray(content.keywords ?? content.tags ?? content.topics) ?? []
 		}),
 		"package.json": (content) => ({
 			description: isString(content.description),
 			homepage: isString(content.homepage ?? content.repository?.url),
-			topics: isStringArray(content.keywords)
+			topics: isStringArray(content.keywords) ?? []
 		}),
 		"pyproject.toml": (content) => ({
 			description: isString(content.project?.description ?? content.tool?.poetry?.description),
 			homepage: isString(content.project?.urls?.homepage ?? content.project?.urls?.repository ?? content.tool?.poetry?.homepage ?? content.tool?.poetry?.repository),
-			topics: isStringArray(content.project?.keywords ?? content.tool?.poetry?.keywords)
+			topics: isStringArray(content.project?.keywords ?? content.tool?.poetry?.keywords) ?? []
 		})
 	};
 	let repoMetadata = {
 		description: void 0,
 		homepage: void 0,
-		topics: void 0
+		topics: []
 	};
 	for (const [filePath, parser] of Object.entries(parsers)) {
 		const content = await loadFile(filePath);
