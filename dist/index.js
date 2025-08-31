@@ -22285,14 +22285,16 @@ var import_github = __toESM$1(require_github(), 1);
 /**
 * Update repository metadata on GitHub
 */
-async function updateRepository(metadata, token) {
+async function updateRepository(metadata, token, actionContext = import_github.context.repo) {
 	const octokit = new Octokit({ auth: token });
-	const { owner, repo } = import_github.context.repo;
+	const { owner, repo } = actionContext;
 	const { data } = await octokit.repos.get({
 		owner,
 		repo
 	});
 	const currentRepoMetadata = data;
+	currentRepoMetadata.description ??= "";
+	currentRepoMetadata.homepage ??= "";
 	const updates = [];
 	if (metadata.description !== currentRepoMetadata.description) {
 		console.log(`\nDescription: ${metadata.description}`);
@@ -22313,7 +22315,7 @@ async function updateRepository(metadata, token) {
 			repo
 		}));
 	}
-	if ([...metadata.topics].sort().join(",") !== [...currentRepoMetadata.topics].sort().join(",")) {
+	if ([...metadata.topics].join(",") !== [...currentRepoMetadata.topics].join(",")) {
 		console.log(`\nTopics: ${JSON.stringify(metadata.topics)}`);
 		console.log(`Updating topics for [${owner}/${repo}]`);
 		updates.push(octokit.repos.replaceAllTopics({
@@ -24151,8 +24153,8 @@ async function parseMetadata() {
 		})
 	};
 	let repoMetadata = {
-		description: void 0,
-		homepage: void 0,
+		description: "",
+		homepage: "",
 		topics: []
 	};
 	for (const [filePath, parser] of Object.entries(parsers)) {
