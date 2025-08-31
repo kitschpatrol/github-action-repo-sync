@@ -5,16 +5,24 @@ import type { RepoMetadata } from './metadata'
 /**
  * Update repository metadata on GitHub
  */
-export async function updateRepository(metadata: RepoMetadata, token: string) {
+export async function updateRepository(
+	metadata: RepoMetadata,
+	token: string,
+	actionContext: { owner: string; repo: string } = context.repo,
+) {
 	const octokit = new Octokit({
 		auth: token,
 	})
 
-	const { owner, repo } = context.repo
+	const { owner, repo } = actionContext
 	const { data } = await octokit.repos.get({ owner, repo })
 
 	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const currentRepoMetadata = data as RepoMetadata
+
+	// GitHub API sometimes reports these as null...
+	currentRepoMetadata.description ??= ''
+	currentRepoMetadata.homepage ??= ''
 
 	const updates: Array<Promise<unknown>> = []
 

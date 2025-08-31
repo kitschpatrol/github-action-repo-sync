@@ -160,8 +160,8 @@ describe('parseMetadata', () => {
 		const metadata = await parseMetadata()
 
 		expect(metadata).toEqual({
-			description: undefined,
-			homepage: undefined,
+			description: '',
+			homepage: '',
 			topics: [],
 		})
 
@@ -174,8 +174,8 @@ describe('parseMetadata', () => {
 		const metadata = await parseMetadata()
 
 		expect(metadata).toEqual({
-			description: undefined,
-			homepage: undefined,
+			description: '',
+			homepage: '',
 			topics: [],
 		})
 

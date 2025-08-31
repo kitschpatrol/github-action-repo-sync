@@ -103,8 +103,8 @@ export async function parseMetadata(): Promise<RepoMetadata> {
 	}
 
 	let repoMetadata: RepoMetadata = {
-		description: undefined,
-		homepage: undefined,
+		description: '',
+		homepage: '',
 		topics: [],
 	}
 
