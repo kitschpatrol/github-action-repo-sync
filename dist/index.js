@@ -22315,7 +22315,7 @@ async function updateRepository(metadata, token, actionContext = import_github.c
 			repo
 		}));
 	}
-	if ([...metadata.topics].join(",") !== [...currentRepoMetadata.topics].join(",")) {
+	if ([...metadata.topics].sort().join(",") !== [...currentRepoMetadata.topics].sort().join(",")) {
 		console.log(`\nTopics: ${JSON.stringify(metadata.topics)}`);
 		console.log(`Updating topics for [${owner}/${repo}]`);
 		updates.push(octokit.repos.replaceAllTopics({

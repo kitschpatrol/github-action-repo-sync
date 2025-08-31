@@ -167,7 +167,7 @@ describe('updateRepository', () => {
 		expect(mockOctokit.repos.replaceAllTopics).not.toHaveBeenCalled()
 	})
 
-	it('should reorder topics if necessary', async () => {
+	it('should handle topics in different order as same', async () => {
 		const currentRepo = {
 			description: 'Test description',
 			homepage: 'https://example.com',
@@ -184,7 +184,7 @@ describe('updateRepository', () => {
 
 		await updateRepository(newMetadata, testToken)
 
-		expect(mockOctokit.repos.replaceAllTopics).toHaveBeenCalled()
+		expect(mockOctokit.repos.replaceAllTopics).not.toHaveBeenCalled()
 	})
 
 	it('should update all fields when all are different', async () => {
