@@ -32,16 +32,15 @@
 	"devDependencies": {
 		"@actions/core": "^1.11.1",
 		"@actions/github": "^6.0.1",
-		"@kitschpatrol/shared-config": "^5.4.2",
+		"@kitschpatrol/shared-config": "^5.5.0",
 		"@octokit/rest": "^22.0.0",
-		"@types/node": "^20.19.0",
+		"@types/node": "^20.19.11",
 		"confbox": "^0.2.2",
 		"rolldown": "1.0.0-beta.12",
 		"typescript": "~5.8.3"
 	},
-	"packageManager": "pnpm@10.11.1",
+	"packageManager": "pnpm@10.15.0",
 	"engines": {
-		"node": ">=20.0.0",
-		"pnpm": ">=10.0.0"
+		"node": ">=20.0.0"
 	}
 }
