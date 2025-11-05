@@ -12,18 +12,20 @@ vi.mock('@actions/github', () => ({
 	},
 }))
 
-// Mock the @octokit/rest module
-const mockOctokit = {
+// Mock the @octokit/rest module - using vi.hoisted to share mocks
+const mockOctokit = vi.hoisted(() => ({
 	repos: {
 		get: vi.fn(),
 		replaceAllTopics: vi.fn(),
 		update: vi.fn(),
 	},
-}
+}))
 
 vi.mock('@octokit/rest', () => ({
 	// eslint-disable-next-line ts/naming-convention
-	Octokit: vi.fn(() => mockOctokit),
+	Octokit: class {
+		repos = mockOctokit.repos
+	},
 }))
 
 describe('updateRepository', () => {

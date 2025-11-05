@@ -20102,7 +20102,7 @@ var before_after_hook_default = {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+endpoint@11.0.0/node_modules/@octokit/endpoint/dist-bundle/index.js
+//#region node_modules/.pnpm/@octokit+endpoint@11.0.2/node_modules/@octokit/endpoint/dist-bundle/index.js
 var VERSION$7 = "0.0.0-development";
 var userAgent = `octokit-endpoint.js/${VERSION$7} ${getUserAgent()}`;
 var DEFAULTS = {
@@ -20444,7 +20444,7 @@ var require_fast_content_type_parse = __commonJS({ "node_modules/.pnpm/fast-cont
 } });
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+request-error@7.0.0/node_modules/@octokit/request-error/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+request-error@7.0.2/node_modules/@octokit/request-error/dist-src/index.js
 var RequestError = class extends Error {
 	name;
 	/**
@@ -20473,9 +20473,9 @@ var RequestError = class extends Error {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+request@10.0.3/node_modules/@octokit/request/dist-bundle/index.js
+//#region node_modules/.pnpm/@octokit+request@10.0.6/node_modules/@octokit/request/dist-bundle/index.js
 var import_fast_content_type_parse = __toESM$1(require_fast_content_type_parse(), 1);
-var VERSION$6 = "10.0.3";
+var VERSION$6 = "10.0.6";
 var defaults_default = { headers: { "user-agent": `octokit-request.js/${VERSION$6} ${getUserAgent()}` } };
 function isPlainObject(value) {
 	if (typeof value !== "object" || value === null) return false;
@@ -20608,7 +20608,7 @@ function withDefaults$1(oldEndpoint, newDefaults) {
 var request = withDefaults$1(endpoint, defaults_default);
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+graphql@9.0.1/node_modules/@octokit/graphql/dist-bundle/index.js
+//#region node_modules/.pnpm/@octokit+graphql@9.0.3/node_modules/@octokit/graphql/dist-bundle/index.js
 var VERSION$5 = "0.0.0-development";
 function _buildMessageForResponseErrors(data) {
 	return `Request failed due to following response errors:
@@ -20729,11 +20729,11 @@ var createTokenAuth = function createTokenAuth2(token) {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+core@7.0.3/node_modules/@octokit/core/dist-src/version.js
-const VERSION$4 = "7.0.3";
+//#region node_modules/.pnpm/@octokit+core@7.0.6/node_modules/@octokit/core/dist-src/version.js
+const VERSION$4 = "7.0.6";
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+core@7.0.3/node_modules/@octokit/core/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+core@7.0.6/node_modules/@octokit/core/dist-src/index.js
 const noop = () => {};
 const consoleWarn = console.warn.bind(console);
 const consoleError = console.error.bind(console);
@@ -20821,11 +20821,11 @@ var Octokit$1 = class {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-request-log/dist-src/version.js
+//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.6/node_modules/@octokit/plugin-request-log/dist-src/version.js
 const VERSION$3 = "6.0.0";
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-request-log/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+plugin-request-log@6.0.0_@octokit+core@7.0.6/node_modules/@octokit/plugin-request-log/dist-src/index.js
 function requestLog(octokit) {
 	octokit.hook.wrap("request", (request$3, options) => {
 		octokit.log.debug("request", options);
@@ -20846,7 +20846,7 @@ function requestLog(octokit) {
 requestLog.VERSION = VERSION$3;
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-paginate-rest@13.1.1_@octokit+core@7.0.3/node_modules/@octokit/plugin-paginate-rest/dist-bundle/index.js
+//#region node_modules/.pnpm/@octokit+plugin-paginate-rest@14.0.0_@octokit+core@7.0.6/node_modules/@octokit/plugin-paginate-rest/dist-bundle/index.js
 var VERSION$2 = "0.0.0-development";
 function normalizePaginatedListResponse(response) {
 	if (!response.data) return {
@@ -20936,11 +20936,11 @@ function paginateRest(octokit) {
 paginateRest.VERSION = VERSION$2;
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/version.js
-const VERSION$1 = "16.0.0";
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@17.0.0_@octokit+core@7.0.6/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/version.js
+const VERSION$1 = "17.0.0";
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/generated/endpoints.js
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@17.0.0_@octokit+core@7.0.6/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/generated/endpoints.js
 const Endpoints = {
 	actions: {
 		addCustomLabelsToSelfHostedRunnerForOrg: ["POST /orgs/{org}/actions/runners/{runner_id}/labels"],
@@ -20965,6 +20965,8 @@ const Endpoints = {
 		deleteActionsCacheById: ["DELETE /repos/{owner}/{repo}/actions/caches/{cache_id}"],
 		deleteActionsCacheByKey: ["DELETE /repos/{owner}/{repo}/actions/caches{?key,ref}"],
 		deleteArtifact: ["DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}"],
+		deleteCustomImageFromOrg: ["DELETE /orgs/{org}/actions/hosted-runners/images/custom/{image_definition_id}"],
+		deleteCustomImageVersionFromOrg: ["DELETE /orgs/{org}/actions/hosted-runners/images/custom/{image_definition_id}/versions/{version}"],
 		deleteEnvironmentSecret: ["DELETE /repos/{owner}/{repo}/environments/{environment_name}/secrets/{secret_name}"],
 		deleteEnvironmentVariable: ["DELETE /repos/{owner}/{repo}/environments/{environment_name}/variables/{name}"],
 		deleteHostedRunnerForOrg: ["DELETE /orgs/{org}/actions/hosted-runners/{hosted_runner_id}"],
@@ -20994,6 +20996,8 @@ const Endpoints = {
 		getAllowedActionsOrganization: ["GET /orgs/{org}/actions/permissions/selected-actions"],
 		getAllowedActionsRepository: ["GET /repos/{owner}/{repo}/actions/permissions/selected-actions"],
 		getArtifact: ["GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}"],
+		getCustomImageForOrg: ["GET /orgs/{org}/actions/hosted-runners/images/custom/{image_definition_id}"],
+		getCustomImageVersionForOrg: ["GET /orgs/{org}/actions/hosted-runners/images/custom/{image_definition_id}/versions/{version}"],
 		getCustomOidcSubClaimForRepo: ["GET /repos/{owner}/{repo}/actions/oidc/customization/sub"],
 		getEnvironmentPublicKey: ["GET /repos/{owner}/{repo}/environments/{environment_name}/secrets/public-key"],
 		getEnvironmentSecret: ["GET /repos/{owner}/{repo}/environments/{environment_name}/secrets/{secret_name}"],
@@ -21031,6 +21035,8 @@ const Endpoints = {
 		getWorkflowRunUsage: ["GET /repos/{owner}/{repo}/actions/runs/{run_id}/timing"],
 		getWorkflowUsage: ["GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing"],
 		listArtifactsForRepo: ["GET /repos/{owner}/{repo}/actions/artifacts"],
+		listCustomImageVersionsForOrg: ["GET /orgs/{org}/actions/hosted-runners/images/custom/{image_definition_id}/versions"],
+		listCustomImagesForOrg: ["GET /orgs/{org}/actions/hosted-runners/images/custom"],
 		listEnvironmentSecrets: ["GET /repos/{owner}/{repo}/environments/{environment_name}/secrets"],
 		listEnvironmentVariables: ["GET /repos/{owner}/{repo}/environments/{environment_name}/variables"],
 		listGithubHostedRunnersInGroupForOrg: ["GET /orgs/{org}/actions/runner-groups/{runner_group_id}/hosted-runners"],
@@ -21171,6 +21177,8 @@ const Endpoints = {
 	billing: {
 		getGithubActionsBillingOrg: ["GET /orgs/{org}/settings/billing/actions"],
 		getGithubActionsBillingUser: ["GET /users/{username}/settings/billing/actions"],
+		getGithubBillingPremiumRequestUsageReportOrg: ["GET /organizations/{org}/settings/billing/premium_request/usage"],
+		getGithubBillingPremiumRequestUsageReportUser: ["GET /users/{username}/settings/billing/premium_request/usage"],
 		getGithubBillingUsageReportOrg: ["GET /organizations/{org}/settings/billing/usage"],
 		getGithubBillingUsageReportUser: ["GET /users/{username}/settings/billing/usage"],
 		getGithubPackagesBillingOrg: ["GET /orgs/{org}/settings/billing/packages"],
@@ -21338,8 +21346,11 @@ const Endpoints = {
 		listRepoSecrets: ["GET /repos/{owner}/{repo}/dependabot/secrets"],
 		listSelectedReposForOrgSecret: ["GET /orgs/{org}/dependabot/secrets/{secret_name}/repositories"],
 		removeSelectedRepoFromOrgSecret: ["DELETE /orgs/{org}/dependabot/secrets/{secret_name}/repositories/{repository_id}"],
+		repositoryAccessForOrg: ["GET /organizations/{org}/dependabot/repository-access"],
+		setRepositoryAccessDefaultLevel: ["PUT /organizations/{org}/dependabot/repository-access/default-level"],
 		setSelectedReposForOrgSecret: ["PUT /orgs/{org}/dependabot/secrets/{secret_name}/repositories"],
-		updateAlert: ["PATCH /repos/{owner}/{repo}/dependabot/alerts/{alert_number}"]
+		updateAlert: ["PATCH /repos/{owner}/{repo}/dependabot/alerts/{alert_number}"],
+		updateRepositoryAccessForOrg: ["PATCH /organizations/{org}/dependabot/repository-access"]
 	},
 	dependencyGraph: {
 		createRepositorySnapshot: ["POST /repos/{owner}/{repo}/dependency-graph/snapshots"],
@@ -21347,6 +21358,29 @@ const Endpoints = {
 		exportSbom: ["GET /repos/{owner}/{repo}/dependency-graph/sbom"]
 	},
 	emojis: { get: ["GET /emojis"] },
+	enterpriseTeamMemberships: {
+		add: ["PUT /enterprises/{enterprise}/teams/{enterprise-team}/memberships/{username}"],
+		bulkAdd: ["POST /enterprises/{enterprise}/teams/{enterprise-team}/memberships/add"],
+		bulkRemove: ["POST /enterprises/{enterprise}/teams/{enterprise-team}/memberships/remove"],
+		get: ["GET /enterprises/{enterprise}/teams/{enterprise-team}/memberships/{username}"],
+		list: ["GET /enterprises/{enterprise}/teams/{enterprise-team}/memberships"],
+		remove: ["DELETE /enterprises/{enterprise}/teams/{enterprise-team}/memberships/{username}"]
+	},
+	enterpriseTeamOrganizations: {
+		add: ["PUT /enterprises/{enterprise}/teams/{enterprise-team}/organizations/{org}"],
+		bulkAdd: ["POST /enterprises/{enterprise}/teams/{enterprise-team}/organizations/add"],
+		bulkRemove: ["POST /enterprises/{enterprise}/teams/{enterprise-team}/organizations/remove"],
+		delete: ["DELETE /enterprises/{enterprise}/teams/{enterprise-team}/organizations/{org}"],
+		getAssignment: ["GET /enterprises/{enterprise}/teams/{enterprise-team}/organizations/{org}"],
+		getAssignments: ["GET /enterprises/{enterprise}/teams/{enterprise-team}/organizations"]
+	},
+	enterpriseTeams: {
+		create: ["POST /enterprises/{enterprise}/teams"],
+		delete: ["DELETE /enterprises/{enterprise}/teams/{team_slug}"],
+		get: ["GET /enterprises/{enterprise}/teams/{team_slug}"],
+		list: ["GET /enterprises/{enterprise}/teams"],
+		update: ["PATCH /enterprises/{enterprise}/teams/{team_slug}"]
+	},
 	gists: {
 		checkIsStarred: ["GET /gists/{gist_id}/star"],
 		create: ["POST /gists"],
@@ -21424,6 +21458,7 @@ const Endpoints = {
 	},
 	issues: {
 		addAssignees: ["POST /repos/{owner}/{repo}/issues/{issue_number}/assignees"],
+		addBlockedByDependency: ["POST /repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocked_by"],
 		addLabels: ["POST /repos/{owner}/{repo}/issues/{issue_number}/labels"],
 		addSubIssue: ["POST /repos/{owner}/{repo}/issues/{issue_number}/sub_issues"],
 		checkUserCanBeAssigned: ["GET /repos/{owner}/{repo}/assignees/{assignee}"],
@@ -21440,10 +21475,13 @@ const Endpoints = {
 		getEvent: ["GET /repos/{owner}/{repo}/issues/events/{event_id}"],
 		getLabel: ["GET /repos/{owner}/{repo}/labels/{name}"],
 		getMilestone: ["GET /repos/{owner}/{repo}/milestones/{milestone_number}"],
+		getParent: ["GET /repos/{owner}/{repo}/issues/{issue_number}/parent"],
 		list: ["GET /issues"],
 		listAssignees: ["GET /repos/{owner}/{repo}/assignees"],
 		listComments: ["GET /repos/{owner}/{repo}/issues/{issue_number}/comments"],
 		listCommentsForRepo: ["GET /repos/{owner}/{repo}/issues/comments"],
+		listDependenciesBlockedBy: ["GET /repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocked_by"],
+		listDependenciesBlocking: ["GET /repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocking"],
 		listEvents: ["GET /repos/{owner}/{repo}/issues/{issue_number}/events"],
 		listEventsForRepo: ["GET /repos/{owner}/{repo}/issues/events"],
 		listEventsForTimeline: ["GET /repos/{owner}/{repo}/issues/{issue_number}/timeline"],
@@ -21458,6 +21496,7 @@ const Endpoints = {
 		lock: ["PUT /repos/{owner}/{repo}/issues/{issue_number}/lock"],
 		removeAllLabels: ["DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels"],
 		removeAssignees: ["DELETE /repos/{owner}/{repo}/issues/{issue_number}/assignees"],
+		removeDependencyBlockedBy: ["DELETE /repos/{owner}/{repo}/issues/{issue_number}/dependencies/blocked_by/{issue_id}"],
 		removeLabel: ["DELETE /repos/{owner}/{repo}/issues/{issue_number}/labels/{name}"],
 		removeSubIssue: ["DELETE /repos/{owner}/{repo}/issues/{issue_number}/sub_issue"],
 		reprioritizeSubIssue: ["PATCH /repos/{owner}/{repo}/issues/{issue_number}/sub_issues/priority"],
@@ -21523,23 +21562,30 @@ const Endpoints = {
 		checkMembershipForUser: ["GET /orgs/{org}/members/{username}"],
 		checkPublicMembershipForUser: ["GET /orgs/{org}/public_members/{username}"],
 		convertMemberToOutsideCollaborator: ["PUT /orgs/{org}/outside_collaborators/{username}"],
+		createArtifactStorageRecord: ["POST /orgs/{org}/artifacts/metadata/storage-record"],
 		createInvitation: ["POST /orgs/{org}/invitations"],
 		createIssueType: ["POST /orgs/{org}/issue-types"],
-		createOrUpdateCustomProperties: ["PATCH /orgs/{org}/properties/schema"],
-		createOrUpdateCustomPropertiesValuesForRepos: ["PATCH /orgs/{org}/properties/values"],
-		createOrUpdateCustomProperty: ["PUT /orgs/{org}/properties/schema/{custom_property_name}"],
 		createWebhook: ["POST /orgs/{org}/hooks"],
+		customPropertiesForOrgsCreateOrUpdateOrganizationValues: ["PATCH /organizations/{org}/org-properties/values"],
+		customPropertiesForOrgsGetOrganizationValues: ["GET /organizations/{org}/org-properties/values"],
+		customPropertiesForReposCreateOrUpdateOrganizationDefinition: ["PUT /orgs/{org}/properties/schema/{custom_property_name}"],
+		customPropertiesForReposCreateOrUpdateOrganizationDefinitions: ["PATCH /orgs/{org}/properties/schema"],
+		customPropertiesForReposCreateOrUpdateOrganizationValues: ["PATCH /orgs/{org}/properties/values"],
+		customPropertiesForReposDeleteOrganizationDefinition: ["DELETE /orgs/{org}/properties/schema/{custom_property_name}"],
+		customPropertiesForReposGetOrganizationDefinition: ["GET /orgs/{org}/properties/schema/{custom_property_name}"],
+		customPropertiesForReposGetOrganizationDefinitions: ["GET /orgs/{org}/properties/schema"],
+		customPropertiesForReposGetOrganizationValues: ["GET /orgs/{org}/properties/values"],
 		delete: ["DELETE /orgs/{org}"],
+		deleteAttestationsBulk: ["POST /orgs/{org}/attestations/delete-request"],
+		deleteAttestationsById: ["DELETE /orgs/{org}/attestations/{attestation_id}"],
+		deleteAttestationsBySubjectDigest: ["DELETE /orgs/{org}/attestations/digest/{subject_digest}"],
 		deleteIssueType: ["DELETE /orgs/{org}/issue-types/{issue_type_id}"],
 		deleteWebhook: ["DELETE /orgs/{org}/hooks/{hook_id}"],
-		enableOrDisableSecurityProductOnAllOrgRepos: [
-			"POST /orgs/{org}/{security_product}/{enablement}",
-			{},
-			{ deprecated: "octokit.rest.orgs.enableOrDisableSecurityProductOnAllOrgRepos() is deprecated, see https://docs.github.com/rest/orgs/orgs#enable-or-disable-a-security-feature-for-an-organization" }
-		],
+		disableSelectedRepositoryImmutableReleasesOrganization: ["DELETE /orgs/{org}/settings/immutable-releases/repositories/{repository_id}"],
+		enableSelectedRepositoryImmutableReleasesOrganization: ["PUT /orgs/{org}/settings/immutable-releases/repositories/{repository_id}"],
 		get: ["GET /orgs/{org}"],
-		getAllCustomProperties: ["GET /orgs/{org}/properties/schema"],
-		getCustomProperty: ["GET /orgs/{org}/properties/schema/{custom_property_name}"],
+		getImmutableReleasesSettings: ["GET /orgs/{org}/settings/immutable-releases"],
+		getImmutableReleasesSettingsRepositories: ["GET /orgs/{org}/settings/immutable-releases/repositories"],
 		getMembershipForAuthenticatedUser: ["GET /user/memberships/orgs/{org}"],
 		getMembershipForUser: ["GET /orgs/{org}/memberships/{username}"],
 		getOrgRole: ["GET /orgs/{org}/organization-roles/{role_id}"],
@@ -21550,9 +21596,11 @@ const Endpoints = {
 		getWebhookDelivery: ["GET /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}"],
 		list: ["GET /organizations"],
 		listAppInstallations: ["GET /orgs/{org}/installations"],
+		listArtifactStorageRecords: ["GET /orgs/{org}/artifacts/{subject_digest}/metadata/storage-records"],
+		listAttestationRepositories: ["GET /orgs/{org}/attestations/repositories"],
 		listAttestations: ["GET /orgs/{org}/attestations/{subject_digest}"],
+		listAttestationsBulk: ["POST /orgs/{org}/attestations/bulk-list{?per_page,before,after}"],
 		listBlockedUsers: ["GET /orgs/{org}/blocks"],
-		listCustomPropertiesValuesForRepos: ["GET /orgs/{org}/properties/values"],
 		listFailedInvitations: ["GET /orgs/{org}/failed_invitations"],
 		listForAuthenticatedUser: ["GET /user/orgs"],
 		listForUser: ["GET /users/{username}/orgs"],
@@ -21580,7 +21628,6 @@ const Endpoints = {
 		listWebhooks: ["GET /orgs/{org}/hooks"],
 		pingWebhook: ["POST /orgs/{org}/hooks/{hook_id}/pings"],
 		redeliverWebhookDelivery: ["POST /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts"],
-		removeCustomProperty: ["DELETE /orgs/{org}/properties/schema/{custom_property_name}"],
 		removeMember: ["DELETE /orgs/{org}/members/{username}"],
 		removeMembershipForUser: ["DELETE /orgs/{org}/memberships/{username}"],
 		removeOutsideCollaborator: ["DELETE /orgs/{org}/outside_collaborators/{username}"],
@@ -21596,6 +21643,8 @@ const Endpoints = {
 		revokeAllOrgRolesUser: ["DELETE /orgs/{org}/organization-roles/users/{username}"],
 		revokeOrgRoleTeam: ["DELETE /orgs/{org}/organization-roles/teams/{team_slug}/{role_id}"],
 		revokeOrgRoleUser: ["DELETE /orgs/{org}/organization-roles/users/{username}/{role_id}"],
+		setImmutableReleasesSettings: ["PUT /orgs/{org}/settings/immutable-releases"],
+		setImmutableReleasesSettingsRepositories: ["PUT /orgs/{org}/settings/immutable-releases/repositories"],
 		setMembershipForUser: ["PUT /orgs/{org}/memberships/{username}"],
 		setPublicMembershipForAuthenticatedUser: ["PUT /orgs/{org}/public_members/{username}"],
 		unblockUser: ["DELETE /orgs/{org}/blocks/{username}"],
@@ -21653,6 +21702,26 @@ const Endpoints = {
 		getOrgPublicKey: ["GET /orgs/{org}/private-registries/public-key"],
 		listOrgPrivateRegistries: ["GET /orgs/{org}/private-registries"],
 		updateOrgPrivateRegistry: ["PATCH /orgs/{org}/private-registries/{secret_name}"]
+	},
+	projects: {
+		addItemForOrg: ["POST /orgs/{org}/projectsV2/{project_number}/items"],
+		addItemForUser: ["POST /users/{username}/projectsV2/{project_number}/items"],
+		deleteItemForOrg: ["DELETE /orgs/{org}/projectsV2/{project_number}/items/{item_id}"],
+		deleteItemForUser: ["DELETE /users/{username}/projectsV2/{project_number}/items/{item_id}"],
+		getFieldForOrg: ["GET /orgs/{org}/projectsV2/{project_number}/fields/{field_id}"],
+		getFieldForUser: ["GET /users/{username}/projectsV2/{project_number}/fields/{field_id}"],
+		getForOrg: ["GET /orgs/{org}/projectsV2/{project_number}"],
+		getForUser: ["GET /users/{username}/projectsV2/{project_number}"],
+		getOrgItem: ["GET /orgs/{org}/projectsV2/{project_number}/items/{item_id}"],
+		getUserItem: ["GET /users/{username}/projectsV2/{project_number}/items/{item_id}"],
+		listFieldsForOrg: ["GET /orgs/{org}/projectsV2/{project_number}/fields"],
+		listFieldsForUser: ["GET /users/{username}/projectsV2/{project_number}/fields"],
+		listForOrg: ["GET /orgs/{org}/projectsV2"],
+		listForUser: ["GET /users/{username}/projectsV2"],
+		listItemsForOrg: ["GET /orgs/{org}/projectsV2/{project_number}/items"],
+		listItemsForUser: ["GET /users/{username}/projectsV2/{project_number}/items"],
+		updateItemForOrg: ["PATCH /orgs/{org}/projectsV2/{project_number}/items/{item_id}"],
+		updateItemForUser: ["PATCH /users/{username}/projectsV2/{project_number}/items/{item_id}"]
 	},
 	pulls: {
 		checkIfMerged: ["GET /repos/{owner}/{repo}/pulls/{pull_number}/merge"],
@@ -21738,6 +21807,7 @@ const Endpoints = {
 		cancelPagesDeployment: ["POST /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel"],
 		checkAutomatedSecurityFixes: ["GET /repos/{owner}/{repo}/automated-security-fixes"],
 		checkCollaborator: ["GET /repos/{owner}/{repo}/collaborators/{username}"],
+		checkImmutableReleases: ["GET /repos/{owner}/{repo}/immutable-releases"],
 		checkPrivateVulnerabilityReporting: ["GET /repos/{owner}/{repo}/private-vulnerability-reporting"],
 		checkVulnerabilityAlerts: ["GET /repos/{owner}/{repo}/vulnerability-alerts"],
 		codeownersErrors: ["GET /repos/{owner}/{repo}/codeowners/errors"],
@@ -21757,7 +21827,6 @@ const Endpoints = {
 		createForAuthenticatedUser: ["POST /user/repos"],
 		createFork: ["POST /repos/{owner}/{repo}/forks"],
 		createInOrg: ["POST /orgs/{org}/repos"],
-		createOrUpdateCustomPropertiesValues: ["PATCH /repos/{owner}/{repo}/properties/values"],
 		createOrUpdateEnvironment: ["PUT /repos/{owner}/{repo}/environments/{environment_name}"],
 		createOrUpdateFileContents: ["PUT /repos/{owner}/{repo}/contents/{path}"],
 		createOrgRuleset: ["POST /orgs/{org}/rulesets"],
@@ -21767,6 +21836,8 @@ const Endpoints = {
 		createRepoRuleset: ["POST /repos/{owner}/{repo}/rulesets"],
 		createUsingTemplate: ["POST /repos/{template_owner}/{template_repo}/generate"],
 		createWebhook: ["POST /repos/{owner}/{repo}/hooks"],
+		customPropertiesForReposCreateOrUpdateRepositoryValues: ["PATCH /repos/{owner}/{repo}/properties/values"],
+		customPropertiesForReposGetRepositoryValues: ["GET /repos/{owner}/{repo}/properties/values"],
 		declineInvitation: [
 			"DELETE /user/repository_invitations/{invitation_id}",
 			{},
@@ -21795,6 +21866,7 @@ const Endpoints = {
 		deleteWebhook: ["DELETE /repos/{owner}/{repo}/hooks/{hook_id}"],
 		disableAutomatedSecurityFixes: ["DELETE /repos/{owner}/{repo}/automated-security-fixes"],
 		disableDeploymentProtectionRule: ["DELETE /repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}"],
+		disableImmutableReleases: ["DELETE /repos/{owner}/{repo}/immutable-releases"],
 		disablePrivateVulnerabilityReporting: ["DELETE /repos/{owner}/{repo}/private-vulnerability-reporting"],
 		disableVulnerabilityAlerts: ["DELETE /repos/{owner}/{repo}/vulnerability-alerts"],
 		downloadArchive: [
@@ -21805,6 +21877,7 @@ const Endpoints = {
 		downloadTarballArchive: ["GET /repos/{owner}/{repo}/tarball/{ref}"],
 		downloadZipballArchive: ["GET /repos/{owner}/{repo}/zipball/{ref}"],
 		enableAutomatedSecurityFixes: ["PUT /repos/{owner}/{repo}/automated-security-fixes"],
+		enableImmutableReleases: ["PUT /repos/{owner}/{repo}/immutable-releases"],
 		enablePrivateVulnerabilityReporting: ["PUT /repos/{owner}/{repo}/private-vulnerability-reporting"],
 		enableVulnerabilityAlerts: ["PUT /repos/{owner}/{repo}/vulnerability-alerts"],
 		generateReleaseNotes: ["POST /repos/{owner}/{repo}/releases/generate-notes"],
@@ -21832,7 +21905,6 @@ const Endpoints = {
 		getContent: ["GET /repos/{owner}/{repo}/contents/{path}"],
 		getContributorsStats: ["GET /repos/{owner}/{repo}/stats/contributors"],
 		getCustomDeploymentProtectionRule: ["GET /repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}"],
-		getCustomPropertiesValues: ["GET /repos/{owner}/{repo}/properties/values"],
 		getDeployKey: ["GET /repos/{owner}/{repo}/keys/{key_id}"],
 		getDeployment: ["GET /repos/{owner}/{repo}/deployments/{deployment_id}"],
 		getDeploymentBranchPolicy: ["GET /repos/{owner}/{repo}/environments/{environment_name}/deployment-branch-policies/{branch_policy_id}"],
@@ -21979,11 +22051,7 @@ const Endpoints = {
 	search: {
 		code: ["GET /search/code"],
 		commits: ["GET /search/commits"],
-		issuesAndPullRequests: [
-			"GET /search/issues",
-			{},
-			{ deprecated: "octokit.rest.search.issuesAndPullRequests() is deprecated, see https://docs.github.com/rest/search/search#search-issues-and-pull-requests" }
-		],
+		issuesAndPullRequests: ["GET /search/issues"],
 		labels: ["GET /search/labels"],
 		repos: ["GET /search/repositories"],
 		topics: ["GET /search/topics"],
@@ -21993,11 +22061,12 @@ const Endpoints = {
 		createPushProtectionBypass: ["POST /repos/{owner}/{repo}/secret-scanning/push-protection-bypasses"],
 		getAlert: ["GET /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}"],
 		getScanHistory: ["GET /repos/{owner}/{repo}/secret-scanning/scan-history"],
-		listAlertsForEnterprise: ["GET /enterprises/{enterprise}/secret-scanning/alerts"],
 		listAlertsForOrg: ["GET /orgs/{org}/secret-scanning/alerts"],
 		listAlertsForRepo: ["GET /repos/{owner}/{repo}/secret-scanning/alerts"],
 		listLocationsForAlert: ["GET /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}/locations"],
-		updateAlert: ["PATCH /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}"]
+		listOrgPatternConfigs: ["GET /orgs/{org}/secret-scanning/pattern-configurations"],
+		updateAlert: ["PATCH /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}"],
+		updateOrgPatternConfigs: ["PATCH /orgs/{org}/secret-scanning/pattern-configurations"]
 	},
 	securityAdvisories: {
 		createFork: ["POST /repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks"],
@@ -22064,6 +22133,9 @@ const Endpoints = {
 		],
 		createPublicSshKeyForAuthenticatedUser: ["POST /user/keys"],
 		createSshSigningKeyForAuthenticatedUser: ["POST /user/ssh_signing_keys"],
+		deleteAttestationsBulk: ["POST /users/{username}/attestations/delete-request"],
+		deleteAttestationsById: ["DELETE /users/{username}/attestations/{attestation_id}"],
+		deleteAttestationsBySubjectDigest: ["DELETE /users/{username}/attestations/digest/{subject_digest}"],
 		deleteEmailForAuthenticated: [
 			"DELETE /user/emails",
 			{},
@@ -22104,6 +22176,7 @@ const Endpoints = {
 		getSshSigningKeyForAuthenticatedUser: ["GET /user/ssh_signing_keys/{ssh_signing_key_id}"],
 		list: ["GET /users"],
 		listAttestations: ["GET /users/{username}/attestations/{subject_digest}"],
+		listAttestationsBulk: ["POST /users/{username}/attestations/bulk-list{?per_page,before,after}"],
 		listBlockedByAuthenticated: [
 			"GET /user/blocks",
 			{},
@@ -22163,7 +22236,7 @@ const Endpoints = {
 var endpoints_default = Endpoints;
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/endpoints-to-methods.js
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@17.0.0_@octokit+core@7.0.6/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/endpoints-to-methods.js
 const endpointMethodsMap = /* @__PURE__ */ new Map();
 for (const [scope, endpoints] of Object.entries(endpoints_default)) for (const [methodName, endpoint$2] of Object.entries(endpoints)) {
 	const [route, defaults, decorations] = endpoint$2;
@@ -22256,7 +22329,7 @@ function decorate(octokit, scope, methodName, defaults, decorations) {
 }
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@16.0.0_@octokit+core@7.0.3/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+plugin-rest-endpoint-methods@17.0.0_@octokit+core@7.0.6/node_modules/@octokit/plugin-rest-endpoint-methods/dist-src/index.js
 function restEndpointMethods(octokit) {
 	const api$1 = endpointsToMethods(octokit);
 	return { rest: api$1 };
@@ -22272,11 +22345,11 @@ function legacyRestEndpointMethods(octokit) {
 legacyRestEndpointMethods.VERSION = VERSION$1;
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+rest@22.0.0/node_modules/@octokit/rest/dist-src/version.js
-const VERSION = "22.0.0";
+//#region node_modules/.pnpm/@octokit+rest@22.0.1/node_modules/@octokit/rest/dist-src/version.js
+const VERSION = "22.0.1";
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+rest@22.0.0/node_modules/@octokit/rest/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+rest@22.0.1/node_modules/@octokit/rest/dist-src/index.js
 const Octokit = Octokit$1.plugin(requestLog, legacyRestEndpointMethods, paginateRest).defaults({ userAgent: `octokit-rest.js/${VERSION}` });
 
 //#endregion

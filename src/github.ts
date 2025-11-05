@@ -60,6 +60,7 @@ export async function updateRepository(
 	}
 
 	// Update topics
+	// eslint-disable-next-line unicorn/no-array-sort
 	if ([...metadata.topics].sort().join(',') !== [...currentRepoMetadata.topics].sort().join(',')) {
 		console.log(`\nTopics: ${JSON.stringify(metadata.topics)}`)
 		console.log(`Updating topics for [${owner}/${repo}]`)
