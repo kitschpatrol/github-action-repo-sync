@@ -7862,7 +7862,7 @@ var require_readable = __commonJS({ "node_modules/.pnpm/undici@5.29.0/node_modul
 	const kBody = Symbol("kBody");
 	const kAbort = Symbol("abort");
 	const kContentType = Symbol("kContentType");
-	const noop$2 = () => {};
+	const noop$3 = () => {};
 	module.exports = class BodyReadable extends Readable$3 {
 		constructor({ resume: resume$1, abort: abort$1, contentType = "", highWaterMark = 64 * 1024 }) {
 			super({
@@ -7951,12 +7951,12 @@ var require_readable = __commonJS({ "node_modules/.pnpm/undici@5.29.0/node_modul
 			return new Promise((resolve, reject) => {
 				const signalListenerCleanup = signal ? util$9.addAbortListener(signal, () => {
 					this.destroy();
-				}) : noop$2;
+				}) : noop$3;
 				this.on("close", function() {
 					signalListenerCleanup();
 					if (signal && signal.aborted) reject(signal.reason || Object.assign(new Error("The operation was aborted"), { name: "AbortError" }));
 					else resolve(null);
-				}).on("error", noop$2).on("data", function(chunk) {
+				}).on("error", noop$3).on("data", function(chunk) {
 					limit -= chunk.length;
 					if (limit <= 0) this.destroy();
 				}).resume();
@@ -18122,12 +18122,12 @@ var require_dist_node$2 = __commonJS({ "node_modules/.pnpm/@octokit+core@5.2.2/n
 	var import_graphql = require_dist_node$4();
 	var import_auth_token = require_dist_node$3();
 	var VERSION$10 = "5.2.2";
-	var noop$1 = () => {};
+	var noop$2 = () => {};
 	var consoleWarn$1 = console.warn.bind(console);
 	var consoleError$1 = console.error.bind(console);
 	function createLogger$1(logger = {}) {
-		if (typeof logger.debug !== "function") logger.debug = noop$1;
-		if (typeof logger.info !== "function") logger.info = noop$1;
+		if (typeof logger.debug !== "function") logger.debug = noop$2;
+		if (typeof logger.info !== "function") logger.info = noop$2;
 		if (typeof logger.warn !== "function") logger.warn = consoleWarn$1;
 		if (typeof logger.error !== "function") logger.error = consoleError$1;
 		return logger;
@@ -20444,7 +20444,7 @@ var require_fast_content_type_parse = __commonJS({ "node_modules/.pnpm/fast-cont
 } });
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+request-error@7.0.2/node_modules/@octokit/request-error/dist-src/index.js
+//#region node_modules/.pnpm/@octokit+request-error@7.1.0/node_modules/@octokit/request-error/dist-src/index.js
 var RequestError = class extends Error {
 	name;
 	/**
@@ -20460,10 +20460,11 @@ var RequestError = class extends Error {
 	*/
 	response;
 	constructor(message, statusCode, options) {
-		super(message);
+		super(message, { cause: options.cause });
 		this.name = "HttpError";
 		this.status = Number.parseInt(statusCode);
 		if (Number.isNaN(this.status)) this.status = 0;
+		/* v8 ignore else -- @preserve -- Bug with vitest coverage where it sees an else branch that doesn't exist */
 		if ("response" in options) this.response = options.response;
 		const requestCopy = Object.assign({}, options.request);
 		if (options.request.headers.authorization) requestCopy.headers = Object.assign({}, options.request.headers, { authorization: options.request.headers.authorization.replace(/(?<! ) .*$/, " [REDACTED]") });
@@ -20473,9 +20474,9 @@ var RequestError = class extends Error {
 };
 
 //#endregion
-//#region node_modules/.pnpm/@octokit+request@10.0.6/node_modules/@octokit/request/dist-bundle/index.js
+//#region node_modules/.pnpm/@octokit+request@10.0.7/node_modules/@octokit/request/dist-bundle/index.js
 var import_fast_content_type_parse = __toESM$1(require_fast_content_type_parse(), 1);
-var VERSION$6 = "10.0.6";
+var VERSION$6 = "10.0.7";
 var defaults_default = { headers: { "user-agent": `octokit-request.js/${VERSION$6} ${getUserAgent()}` } };
 function isPlainObject(value) {
 	if (typeof value !== "object" || value === null) return false;
@@ -20485,6 +20486,7 @@ function isPlainObject(value) {
 	const Ctor = Object.prototype.hasOwnProperty.call(proto, "constructor") && proto.constructor;
 	return typeof Ctor === "function" && Ctor instanceof Ctor && Function.prototype.call(Ctor) === Function.prototype.call(value);
 }
+var noop$1 = () => "";
 async function fetchWrapper(requestOptions) {
 	const fetch$1 = requestOptions.request?.fetch || globalThis.fetch;
 	if (!fetch$1) throw new Error("fetch is not set. Please pass a fetch implementation as new Octokit({ request: { fetch }}). Learn more at https://github.com/octokit/octokit.js/#fetch-missing");
@@ -20561,7 +20563,7 @@ async function fetchWrapper(requestOptions) {
 }
 async function getResponseData(response) {
 	const contentType = response.headers.get("content-type");
-	if (!contentType) return response.text().catch(() => "");
+	if (!contentType) return response.text().catch(noop$1);
 	const mimetype = (0, import_fast_content_type_parse.safeParse)(contentType);
 	if (isJSONResponse(mimetype)) {
 		let text = "";
@@ -20571,8 +20573,11 @@ async function getResponseData(response) {
 		} catch (err) {
 			return text;
 		}
-	} else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") return response.text().catch(() => "");
-	else return response.arrayBuffer().catch(() => new ArrayBuffer(0));
+	} else if (mimetype.type.startsWith("text/") || mimetype.parameters.charset?.toLowerCase() === "utf-8") return response.text().catch(noop$1);
+	else return response.arrayBuffer().catch(
+		/* v8 ignore next -- @preserve */
+		() => new ArrayBuffer(0)
+	);
 }
 function isJSONResponse(mimetype) {
 	return mimetype.type === "application/json" || mimetype.type === "application/scim+json";
@@ -20606,6 +20611,8 @@ function withDefaults$1(oldEndpoint, newDefaults) {
 	});
 }
 var request = withDefaults$1(endpoint, defaults_default);
+/* v8 ignore next -- @preserve */
+/* v8 ignore else -- @preserve */
 
 //#endregion
 //#region node_modules/.pnpm/@octokit+graphql@9.0.3/node_modules/@octokit/graphql/dist-bundle/index.js
