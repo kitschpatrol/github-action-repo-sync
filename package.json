@@ -2,7 +2,7 @@
 	"name": "github-action-repo-sync",
 	"version": "3.1.5",
 	"private": true,
-	"description": "GitHub Action to sync repo metadata from package.json to GitHub.",
+	"description": "GitHub Action to detect and sync project metadata to GitHub.",
 	"keywords": [
 		"github-action",
 		"action",

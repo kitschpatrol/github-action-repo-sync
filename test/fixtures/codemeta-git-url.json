@@ -1,0 +1,8 @@
+{
+	"@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+	"@type": "SoftwareSourceCode",
+	"name": "Test CodeMeta with git URL",
+	"description": "Testing git+ prefix and .git suffix normalization",
+	"codeRepository": "git+https://github.com/test/codemeta-git-url.git",
+	"keywords": ["codemeta", "git-url", "testing"]
+}

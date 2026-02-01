@@ -1,0 +1,9 @@
+{
+	"name": "test-git-url-package",
+	"description": "Testing package.json with git URL normalization",
+	"keywords": ["package", "git-url", "testing"],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/test/package-git-url.git"
+	}
+}

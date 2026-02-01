@@ -122,6 +122,90 @@ describe('parseMetadata', () => {
 		await fs.rm(tempDirectory, { recursive: true })
 	})
 
+	it('should parse codemeta.json', async () => {
+		const tempDirectory = await testWithFixture('codemeta-basic.json')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'A test project using CodeMeta metadata format',
+			homepage: 'https://codemeta-example.com',
+			topics: ['codemeta', 'metadata', 'testing'],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
+	it('should use codeRepository as homepage fallback in codemeta.json', async () => {
+		const tempDirectory = await testWithFixture('codemeta-coderepository-fallback.json')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'Testing codeRepository fallback when url is missing',
+			homepage: 'https://github.com/test/codemeta-fallback',
+			topics: ['codemeta', 'fallback', 'testing'],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
+	it('should parse comma-delimited keywords string in codemeta.json', async () => {
+		const tempDirectory = await testWithFixture('codemeta-string-keywords.json')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'Testing comma-delimited keywords string',
+			homepage: 'https://codemeta-string-keywords.com',
+			topics: ['optimization', 'stochastic approximation', 'spsa'],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
+	it('should normalize git+ prefix and .git suffix in codemeta.json codeRepository', async () => {
+		const tempDirectory = await testWithFixture('codemeta-git-url.json')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'Testing git+ prefix and .git suffix normalization',
+			homepage: 'https://github.com/test/codemeta-git-url',
+			topics: ['codemeta', 'git-url', 'testing'],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
+	it('should normalize git+ prefix and .git suffix in package.json repository.url', async () => {
+		const tempDirectory = await testWithFixture('package-git-url.json')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'Testing package.json with git URL normalization',
+			homepage: 'https://github.com/test/package-git-url',
+			topics: ['package', 'git-url', 'testing'],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
+	it('should normalize git+ prefix and .git suffix in metadata.json repository', async () => {
+		const tempDirectory = await testWithFixture('metadata-git-url.json')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'Testing metadata.json with git URL normalization',
+			homepage: 'https://github.com/test/metadata-git-url',
+			topics: ['metadata', 'git-url', 'testing'],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
 	it('should merge metadata from multiple files with priority', async () => {
 		const tempDirectory = path.join(testDirectory, 'temp-merge')
 		await fs.mkdir(tempDirectory, { recursive: true })

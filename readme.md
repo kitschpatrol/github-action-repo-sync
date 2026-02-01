@@ -6,7 +6,7 @@
 
 <!-- /title -->
 
-<!-- badges -->
+<!-- badges { npm: [] } -->
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -14,7 +14,7 @@
 
 <!-- short-description -->
 
-**GitHub Action to sync repo metadata from package.json to GitHub.**
+**GitHub Action to detect and sync project metadata to GitHub.**
 
 <!-- /short-description -->
 
@@ -22,7 +22,7 @@
 
 This action detects metadata from common project configuration files and automatically updates the repository metadata shown in the sidebar on the repository's homepage on GitHub.
 
-It supports setting the description, topic keywords, and homepage URL from `package.json`, `pyproject.toml`, or a language-agnostic `metadata.json` or `metadata.yml` file.
+It supports setting the description, topic keywords, and homepage URL from [`package.json`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json), [`pyproject.toml`](https://packaging.python.org/en/latest/specifications/pyproject-toml/), [`codemeta.json`](https://codemeta.github.io/) files, or a language-agnostic `metadata.json` or `metadata.yml` file.
 
 It's a re-implementation of [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync).
 
