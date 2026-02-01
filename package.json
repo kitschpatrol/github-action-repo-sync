@@ -31,17 +31,17 @@
 		"updatetag": "git tag -d v3 && git push origin :v3 && git tag -a v3 -m '' && git push origin v3"
 	},
 	"devDependencies": {
-		"@actions/core": "^2.0.1",
+		"@actions/core": "^2.0.3",
 		"@actions/github": "^6.0.1",
-		"@kitschpatrol/shared-config": "^5.10.0",
+		"@kitschpatrol/shared-config": "^5.13.0",
 		"@octokit/rest": "^22.0.1",
-		"@types/node": "^20.19.27",
+		"@types/node": "^20.19.30",
 		"confbox": "^0.2.2",
-		"rolldown": "1.0.0-beta.12",
+		"rolldown": "1.0.0-rc.2",
 		"typescript": "~5.9.3",
-		"vitest": "^4.0.16"
+		"vitest": "^4.0.18"
 	},
-	"packageManager": "pnpm@10.26.1",
+	"packageManager": "pnpm@10.28.2",
 	"engines": {
 		"node": ">=20.0.0"
 	}
