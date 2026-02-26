@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import * as core from '@actions/core'
 import { updateRepository } from './github'
 import { parseMetadata } from './metadata'

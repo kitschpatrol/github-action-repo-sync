@@ -6,4 +6,5 @@ pnpm-lock.yaml
 package-lock.json
 
 # Customizations
-test/fixtures/package-invalid.json
+/test/fixtures/package-invalid.json
+/dist/

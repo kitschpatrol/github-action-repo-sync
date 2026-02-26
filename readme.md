@@ -22,13 +22,23 @@
 
 This action detects metadata from common project configuration files and automatically updates the repository metadata shown in the sidebar on the repository's homepage on GitHub.
 
-It supports setting the description, topic keywords, and homepage URL from [`package.json`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json), [`pyproject.toml`](https://packaging.python.org/en/latest/specifications/pyproject-toml/), [`codemeta.json`](https://codemeta.github.io/) files, or a language-agnostic `metadata.json` or `metadata.yml` file.
+It supports setting the description, topic keywords, and homepage URL from a wide variety of project metadata files formats, including [`package.json`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json), [`pyproject.toml`](https://packaging.python.org/en/latest/specifications/pyproject-toml/), [`codemeta.json`](https://codemeta.github.io/) files, etc.
 
-It's a re-implementation of [kbrashears5/github-action-repo-sync](https://github.com/kbrashears5/github-action-repo-sync).
+This lets you treat your existing metadata as a source of truth for GitHub.
+
+See the underlying [`@kitschpatrol/codemeta`](https://github.com/kitschpatrol/codemeta) project for full details on the range of supported metadata sources.
 
 ## Getting started
 
-Add the following to your project's `.github/workflows` directory:
+First, ensure you have a fine-grained GitHub personal access token with access to the repository and at least read access to Metadata and read / write access to Administration and Contents. Add the token to your repository under the `PERSONAL_ACCESS_TOKEN` key or similar.
+
+Example of adding the key with the [GitHub CLI](https://cli.github.com/):
+
+```sh
+gh secret set PERSONAL_ACCESS_TOKEN --app actions --body $PERSONAL_ACCESS_TOKEN
+```
+
+Then add the following to your project's `.github/workflows` directory:
 
 <!-- code { file: ".github/workflows/set-github-metadata.yml" } -->
 
@@ -60,13 +70,35 @@ jobs:
 
 The next time you commit to main, the action will run and update the repository metadata (if possible).
 
+## Overriding discovered metadata
+
+Usually, the point of this action is to leverage your existing project metadata (e.g. `package.json`), but maybe you have a repo with an atypical structure.
+
+To handle such cases, the action checks for a simple `metadata.json` (or `.yaml`) file in the repository root, which can capture the minimal metadata required to populate a GitHub project's repository page's description, homepage, and topics.
+
+The file requires three keys, `description`, `homepage`, and `keywords`. A valid `metadata.json` might look like:
+
+```json
+{
+  "description": "GitHub Action to detect and sync project metadata to GitHub.",
+  "homepage": "https://example.com",
+  "keywords": ["github-action", "action", "repo", "project", "metadata"]
+}
+```
+
+If a `metadata.json` file is present, it will override other project metadata sources like `package.json`.
+
+## Homepage validation
+
+Note that if the discovered `homepage` value is identical to the repository's GitHub homepage URL, then it is _not_ set in the GitHub repository metadata. This prevents cluttering your GitHub repository homepage with a pointless link to itself.
+
 ## Maintainers
 
 [@kitschpatrol](https://github.com/kitschpatrol)
 
 ## Acknowledgments
 
-Thanks to [Kevin Brashears](https://github.com/kbrashears5) for the original shell docker / implementation.
+Thanks to [Kevin Brashears](https://github.com/kbrashears5) for the original shell docker / [implementation](https://github.com/kbrashears5/github-action-repo-sync).
 
 <!-- license -->
 

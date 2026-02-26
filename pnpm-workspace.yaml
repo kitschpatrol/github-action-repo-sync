@@ -2,13 +2,15 @@ onlyBuiltDependencies:
   - esbuild
   - oxc-resolver
   - puppeteer
+  - tree-sitter
+  - tree-sitter-python
+  - tree-sitter-ruby
   - unrs-resolver
 
-# Required by @kitschpatrol/shared-config
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
-  - 'case-police'
+  - case-police
   - '*cspell*'
   - '*eslint*'
   - '*knip*'

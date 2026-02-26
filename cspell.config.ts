@@ -1,3 +1,3 @@
 import { cspellConfig } from '@kitschpatrol/cspell-config'
 
-export default cspellConfig({ words: ['coderepository', 'spsa'] })
+export default cspellConfig({ ignorePaths: ['dist/**/*'], words: ['coderepository', 'spsa'] })

@@ -141,6 +141,8 @@ describe('parseMetadata', () => {
 
 		const metadata = await parseMetadata()
 
+		console.log(metadata)
+
 		expect(metadata).toEqual({
 			description: 'Testing codeRepository fallback when url is missing',
 			homepage: 'https://github.com/test/codemeta-fallback',
@@ -227,9 +229,9 @@ describe('parseMetadata', () => {
 		const metadata = await parseMetadata()
 
 		expect(metadata).toEqual({
-			description: 'Package description',
+			description: 'Metadata description override',
 			homepage: 'https://metadata-home.com',
-			topics: ['package-keyword'],
+			topics: ['metadata-keyword'],
 		})
 
 		await fs.rm(tempDirectory, { recursive: true })
@@ -416,7 +418,7 @@ describe('parseMetadata', () => {
 			path.join(tempDirectory, 'metadata.json'),
 		)
 
-		// Copy package.json fixture that should override description but not homepage/topics
+		// Copy package.json fixture that should be overridden
 		await fs.copyFile(
 			path.join(fixturesDirectory, 'package-priority-test.json'),
 			path.join(tempDirectory, 'package.json'),
@@ -427,9 +429,9 @@ describe('parseMetadata', () => {
 		const metadata = await parseMetadata()
 
 		expect(metadata).toEqual({
-			description: 'Package description override', // Package.json overrides
-			homepage: 'https://package-repo.com', // Package.json repository.url overrides metadata url
-			topics: ['package-keyword'], // Package.json keywords override metadata tags
+			description: 'Metadata description', // Metadata.json wins
+			homepage: 'https://metadata-url.com', // Metadata.json url wins
+			topics: ['metadata-tag'], // Metadata.json tags win
 		})
 
 		await fs.rm(tempDirectory, { recursive: true })
