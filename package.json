@@ -1,6 +1,6 @@
 {
 	"name": "github-action-repo-sync",
-	"version": "3.2.0",
+	"version": "4.0.0",
 	"private": true,
 	"description": "GitHub Action to detect and sync project metadata to GitHub.",
 	"keywords": [
@@ -28,7 +28,7 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"test": "vitest",
-		"updatetag": "git tag -d v3 && git push origin :v3 && git tag -a v3 -m '' && git push origin v3"
+		"updatetag": "git tag -d v4 && git push origin :v4 && git tag -a v4 -m '' && git push origin v4"
 	},
 	"devDependencies": {
 		"@actions/core": "^3.0.0",
