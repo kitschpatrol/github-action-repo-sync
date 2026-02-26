@@ -123,7 +123,7 @@ describe('updateRepository', () => {
 		expect(consoleLogSpy).toHaveBeenCalledWith('Updating topics for [test-owner/test-repo]')
 	})
 
-	it('should skip GitHub repo URL homepage', async () => {
+	it('should clear existing homepage when discovered URL matches repo URL', async () => {
 		const currentRepo = {
 			description: 'Test description',
 			homepage: 'https://old-site.com',
@@ -142,10 +142,30 @@ describe('updateRepository', () => {
 		await updateRepository(newMetadata, testToken)
 
 		expect(mockOctokit.repos.update).toHaveBeenCalledWith({
-			homepage: undefined,
+			homepage: '',
 			owner: 'test-owner',
 			repo: 'test-repo',
 		})
+	})
+
+	it('should not update homepage when discovered URL matches repo URL and homepage is already empty', async () => {
+		const currentRepo = {
+			description: 'Test description',
+			homepage: '',
+			topics: ['test'],
+		}
+
+		const newMetadata: RepoMetadata = {
+			description: 'Test description',
+			homepage: 'https://github.com/test-owner/test-repo',
+			topics: ['test'],
+		}
+
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+
+		await updateRepository(newMetadata, testToken)
+
+		expect(mockOctokit.repos.update).not.toHaveBeenCalled()
 	})
 
 	it('should not update when metadata is the same', async () => {
@@ -226,7 +246,7 @@ describe('updateRepository', () => {
 		})
 	})
 
-	it('should handle undefined values correctly', async () => {
+	it('should clear remote homepage when local homepage is undefined', async () => {
 		const currentRepo = {
 			description: 'Some description',
 			homepage: 'https://example.com',
@@ -252,7 +272,7 @@ describe('updateRepository', () => {
 			repo: 'test-repo',
 		})
 		expect(mockOctokit.repos.update).toHaveBeenNthCalledWith(2, {
-			homepage: undefined,
+			homepage: '',
 			owner: 'test-owner',
 			repo: 'test-repo',
 		})
