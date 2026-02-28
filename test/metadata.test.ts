@@ -407,6 +407,36 @@ describe('parseMetadata', () => {
 		await fs.rm(tempDirectory, { recursive: true })
 	})
 
+	// Test tree-sitter grammar parsing (Ruby gemspec)
+	it('should parse gemspec metadata', async () => {
+		const tempDirectory = await testWithFixture('gemspec-basic.gemspec')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'A test Ruby gem for metadata sync',
+			homepage: 'https://example.com/ruby-gem',
+			topics: [],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
+	// Test tree-sitter grammar parsing (Python setup.py)
+	it('should parse setup.py metadata', async () => {
+		const tempDirectory = await testWithFixture('setup-py-basic.py')
+
+		const metadata = await parseMetadata()
+
+		expect(metadata).toEqual({
+			description: 'A test Python package for metadata sync',
+			homepage: 'https://example.com/python-package',
+			topics: ['python', 'test', 'metadata'],
+		})
+
+		await fs.rm(tempDirectory, { recursive: true })
+	})
+
 	// Test priority order - ensure higher priority files override lower priority ones
 	it('should respect fallback priority order across different files', async () => {
 		const tempDirectory = path.join(testDirectory, 'temp-priority-test')

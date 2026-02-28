@@ -1,12 +1,6 @@
 {
 	"extends": "@kitschpatrol/typescript-config",
 
-	// Override for ncc compatibility — ncc's ts-loader sets noEmit: false,
-	// which conflicts with allowImportingTsExtensions: true from the base config
-	"compilerOptions": {
-		"allowImportingTsExtensions": false
-	},
-
 	// Includes project dot-files files for typescript-eslint integration
 	"include": ["**/*", "**/**.*"],
 	"exclude": ["**/dist/", "**/bin/"]
