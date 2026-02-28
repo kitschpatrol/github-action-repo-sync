@@ -1,6 +1,6 @@
 {
 	"name": "github-action-repo-sync",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"private": true,
 	"description": "GitHub Action to detect and sync project metadata to GitHub.",
 	"keywords": [
