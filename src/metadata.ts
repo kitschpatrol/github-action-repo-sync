@@ -1,20 +1,43 @@
+import type { SourceName } from 'metascope'
 import { getMetadata } from 'metascope'
 
 export type RepoMetadata = {
-	description: string
-	homepage: string
+	description: string | undefined
+	homepage: string | undefined
 	topics: string[]
 }
+
+// Only load sources that the metadata template actually reads
+const sources: SourceName[] = [
+	'arduinoLibraryProperties',
+	'cinderCinderblockXml',
+	'codemetaJson',
+	'goGoMod',
+	'javaPomXml',
+	'metadataFile',
+	'nodePackageJson',
+	'obsidianPluginManifestJson',
+	'openframeworksAddonConfigMk',
+	'openframeworksInstallXml',
+	'processingLibraryProperties',
+	'publiccodeYaml',
+	'pythonPkgInfo',
+	'pythonPyprojectToml',
+	'pythonSetupCfg',
+	'pythonSetupPy',
+	'rubyGemspec',
+	'rustCargoToml',
+	'xcodeInfoPlist',
+]
 
 /**
  * Parse metadata from project config files
  */
 export async function parseMetadata(): Promise<RepoMetadata> {
-	// If the directory contains a metadata.json style file,
-	// that overrides everything else!
 	const metadata = await getMetadata({
 		offline: true,
 		path: '.',
+		sources,
 		template: 'metadata',
 		workspaces: false,
 	})

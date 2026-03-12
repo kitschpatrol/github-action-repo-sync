@@ -20,11 +20,9 @@ export async function updateRepository(
 	// eslint-disable-next-line ts/no-unsafe-type-assertion
 	const currentRepoMetadata = data as RepoMetadata
 
-	// GitHub API sometimes reports these as null despite signature...
-	/* eslint-disable ts/no-unnecessary-condition */
+	// GitHub API sometimes reports these as null...
 	currentRepoMetadata.description ??= ''
 	currentRepoMetadata.homepage ??= ''
-	/* eslint-enable ts/no-unnecessary-condition */
 
 	const updates: Array<Promise<unknown>> = []
 

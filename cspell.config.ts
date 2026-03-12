@@ -2,5 +2,5 @@ import { cspellConfig } from '@kitschpatrol/cspell-config'
 
 export default cspellConfig({
 	ignorePaths: ['dist/**/*'],
-	words: ['coderepository', 'metascope', 'spsa'],
+	words: ['cinderblock', 'coderepository', 'metascope', 'publiccode', 'spsa', 'tokei'],
 })

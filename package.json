@@ -28,7 +28,7 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"test": "vitest run",
-		"updatetag": "git tag -d v5 && git push origin :v5 && git tag -a v5 -m '' && git push origin v5"
+		"updatetag": "git tag -d v4 && git push origin :v4 && git tag -a v4 -m '' && git push origin v4"
 	},
 	"devDependencies": {
 		"@actions/core": "^3.0.0",
@@ -37,7 +37,7 @@
 		"@octokit/rest": "^22.0.1",
 		"@types/node": "~24.0.15",
 		"esbuild": "^0.27.3",
-		"metascope": "link:/Users/mika/Code/metascope",
+		"metascope": "^0.2.1",
 		"tsx": "^4.21.0",
 		"typescript": "~5.9.3",
 		"vitest": "^4.0.18"
