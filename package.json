@@ -28,21 +28,21 @@
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"test": "vitest run",
-		"updatetag": "git tag -d v4 && git push origin :v4 && git tag -a v4 -m '' && git push origin v4"
+		"updatetag": "git tag -d v5 && git push origin :v5 && git tag -a v5 -m '' && git push origin v5"
 	},
 	"devDependencies": {
 		"@actions/core": "^3.0.0",
 		"@actions/github": "^9.0.0",
-		"@kitschpatrol/codemeta": "^0.4.1",
-		"@kitschpatrol/shared-config": "^6.0.1",
+		"@kitschpatrol/shared-config": "^6.0.3",
 		"@octokit/rest": "^22.0.1",
 		"@types/node": "~24.0.15",
 		"esbuild": "^0.27.3",
+		"metascope": "link:/Users/mika/Code/metascope",
 		"tsx": "^4.21.0",
 		"typescript": "~5.9.3",
 		"vitest": "^4.0.18"
 	},
-	"packageManager": "pnpm@10.30.3",
+	"packageManager": "pnpm@10.32.1",
 	"engines": {
 		"node": ">=24.0.0"
 	}

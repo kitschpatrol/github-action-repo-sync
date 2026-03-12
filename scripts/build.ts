@@ -11,8 +11,8 @@ import { join } from 'node:path'
  * relative to the script directory).
  *
  * Grammar WASMs go in outdir/grammars/ and the bundle is patched to reference
- * `./grammars/` instead of `../grammars/` (the original path in the codemeta
- * library's source).
+ * `./grammars/` instead of `../../grammars/` (the original path in the
+ * metascope library's source).
  */
 function treeSitterWasmPlugin(): Plugin {
 	return {
@@ -25,34 +25,28 @@ function treeSitterWasmPlugin(): Plugin {
 				const grammarsDirectory = join(outdir, 'grammars')
 				await mkdir(grammarsDirectory, { recursive: true })
 
-				// Find web-tree-sitter.wasm (transitive dep via @kitschpatrol/codemeta)
+				// Find web-tree-sitter.wasm (transitive dep via metascope)
 				const webTsDirectory = await findPackageDirectory('web-tree-sitter')
 				await copyFile(
 					join(webTsDirectory, 'web-tree-sitter.wasm'),
 					join(outdir, 'web-tree-sitter.wasm'),
 				)
 
-				// Copy grammar WASMs from codemeta's vendored grammars
-				const codemetaGrammars = join(
-					'node_modules',
-					'@kitschpatrol',
-					'codemeta',
-					'dist',
-					'grammars',
-				)
+				// Copy grammar WASMs from metascope's vendored grammars
+				const metascopeGrammars = join('node_modules', 'metascope', 'dist', 'grammars')
 				// eslint-disable-next-line unicorn/no-await-expression-member
-				const wasmFiles = (await readdir(codemetaGrammars)).filter((f) => f.endsWith('.wasm'))
+				const wasmFiles = (await readdir(metascopeGrammars)).filter((f) => f.endsWith('.wasm'))
 				await Promise.all(
 					wasmFiles.map(async (f) =>
-						copyFile(join(codemetaGrammars, f), join(grammarsDirectory, f)),
+						copyFile(join(metascopeGrammars, f), join(grammarsDirectory, f)),
 					),
 				)
 
-				// Patch the bundle: change '../grammars/' to './grammars/' so the paths
+				// Patch the bundle: change '../../grammars/' to './grammars/' so the paths
 				// resolve relative to dist/index.js instead of a non-existent parent dir
 				const bundlePath = join(outdir, 'index.js')
 				const content = await readFile(bundlePath, 'utf8')
-				await writeFile(bundlePath, content.replaceAll('../grammars/', './grammars/'))
+				await writeFile(bundlePath, content.replaceAll('../../grammars/', './grammars/'))
 			})
 		},
 	}

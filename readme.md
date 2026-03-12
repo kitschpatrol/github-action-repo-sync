@@ -26,7 +26,7 @@ It supports setting the description, topic keywords, and homepage URL from a wid
 
 This lets you treat your existing metadata as a source of truth for GitHub.
 
-See the underlying [`@kitschpatrol/codemeta`](https://github.com/kitschpatrol/codemeta) project for full details on the range of supported metadata sources.
+See the underlying [`metascope`](https://github.com/kitschpatrol/metascope) project for full details on the range of supported metadata sources.
 
 ## Getting started
 
