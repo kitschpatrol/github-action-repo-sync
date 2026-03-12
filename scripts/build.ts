@@ -65,9 +65,9 @@ async function findPackageDirectory(packageName: string): Promise<string> {
  * web-tree-sitter.wasm goes directly in outdir (web-tree-sitter looks for it
  * relative to the script directory).
  *
- * Grammar WASMs go in outdir/grammars/ and the bundle is patched to reference
- * `./grammars/` instead of `../../grammars/` (the original path in the
- * metascope library's source).
+ * Grammar WASMs go in outdir/grammars/ and the bundle is patched so that
+ * metascope's resolveGrammar function resolves paths relative to the bundled
+ * script directory rather than using its built-in "/dist/" substring heuristic.
  */
 function treeSitterWasmPlugin(): Plugin {
 	return {
@@ -100,11 +100,23 @@ function treeSitterWasmPlugin(): Plugin {
 					),
 				)
 
-				// Patch the bundle: change '../../grammars/' to './grammars/' so the paths
-				// resolve relative to dist/index.js instead of a non-existent parent dir
+				// Patch the bundle: metascope 0.2.2's resolveGrammar uses a "/dist/"
+				// substring heuristic to find the grammars directory, but after esbuild
+				// bundles everything into dist/index.js, dirname(import.meta.url) is
+				// ".../dist" (no trailing slash) so the check fails. Replace the function
+				// body to resolve grammars relative to the script directory directly.
 				const bundlePath = join(outdir, 'index.js')
 				const content = await readFile(bundlePath, 'utf8')
-				await writeFile(bundlePath, content.replaceAll('../../grammars/', './grammars/'))
+				const patched = content.replace(
+					/(function resolveGrammar\(filename\) \{)\s*const thisDirectory[^}]+\}/,
+					'$1\n  return new URL("grammars/" + filename, import.meta.url).pathname;\n}',
+				)
+
+				if (patched === content) {
+					throw new Error('Failed to patch resolveGrammar in bundled output')
+				}
+
+				await writeFile(bundlePath, patched)
 			})
 		},
 	}

@@ -27,8 +27,8 @@ importers:
         specifier: ^0.27.3
         version: 0.27.3
       metascope:
-        specifier: ^0.2.1
-        version: 0.2.1
+        specifier: ^0.2.2
+        version: 0.2.2
       tsx:
         specifier: ^4.21.0
         version: 4.21.0
@@ -3494,8 +3494,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  metascope@0.2.1:
-    resolution: {integrity: sha512-X7pAIFElqhl+5q0IZpbNECwaoOmnS9Xt20kxFQZz2i0U1SGwtpuR2s8oVFQE2B58cWZPJ16eKoT5aH+sI+7ZTw==}
+  metascope@0.2.2:
+    resolution: {integrity: sha512-XhzR93v5fAeeIyD5rz2K3tGfGEc5QcBQKyaqbLRE0MDijh33osQYWih3zHAjgdnRKsj5O2dA7pLY1OjPTa1jkQ==}
     engines: {node: '>=22.17.0'}
     hasBin: true
 
@@ -9336,7 +9336,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  metascope@0.2.1:
+  metascope@0.2.2:
     dependencies:
       '@bacons/xcode': 1.0.0-alpha.33
       '@kitschpatrol/tokei': 2.0.0
