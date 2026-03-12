@@ -61,7 +61,7 @@ jobs:
           fetch-depth: 0
 
       - name: Sync Package info to GitHub
-        uses: kitschpatrol/github-action-repo-sync@v4
+        uses: kitschpatrol/github-action-repo-sync@v5
         with:
           TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```
