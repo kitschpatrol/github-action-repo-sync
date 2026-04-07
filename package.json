@@ -1,6 +1,6 @@
 {
 	"name": "github-action-repo-sync",
-	"version": "5.0.2",
+	"version": "5.0.3",
 	"private": true,
 	"description": "GitHub Action to detect and sync project metadata to GitHub.",
 	"keywords": [
@@ -33,14 +33,14 @@
 	"devDependencies": {
 		"@actions/core": "^3.0.0",
 		"@actions/github": "^9.0.0",
-		"@kitschpatrol/shared-config": "^6.1.0",
+		"@kitschpatrol/shared-config": "^7.1.0",
 		"@octokit/rest": "^22.0.1",
 		"@types/node": "~24.0.15",
-		"esbuild": "^0.27.4",
-		"metascope": "^0.2.2",
+		"esbuild": "^0.28.0",
+		"metascope": "^0.6.1",
 		"tsx": "^4.21.0",
 		"typescript": "~5.9.3",
-		"vitest": "^4.1.1"
+		"vitest": "^4.1.2"
 	},
 	"packageManager": "pnpm@10.33.0",
 	"engines": {

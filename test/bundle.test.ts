@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
+const FOUND_METADATA_REGEX = /Found metadata: (.+)/
 const execFileAsync = promisify(execFile)
 const testDirectory = path.dirname(fileURLToPath(import.meta.url))
 const fixturesDirectory = path.join(testDirectory, 'fixtures')
@@ -64,7 +65,7 @@ describe('dist bundle tree-sitter grammar loading', () => {
 
 		expect(stdout).toContain('Found metadata:')
 
-		const match = /Found metadata: (.+)/.exec(stdout)
+		const match = FOUND_METADATA_REGEX.exec(stdout)
 		expect(match).not.toBeNull()
 
 		// eslint-disable-next-line ts/no-unsafe-type-assertion
@@ -78,7 +79,7 @@ describe('dist bundle tree-sitter grammar loading', () => {
 
 		expect(stdout).toContain('Found metadata:')
 
-		const match = /Found metadata: (.+)/.exec(stdout)
+		const match = FOUND_METADATA_REGEX.exec(stdout)
 		expect(match).not.toBeNull()
 
 		// eslint-disable-next-line ts/no-unsafe-type-assertion

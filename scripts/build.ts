@@ -12,6 +12,11 @@ import { build } from 'esbuild'
 import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
+const TOKEI_PACKAGE_REGEX = /^@kitschpatrol\/tokei/
+const MATCH_ALL_REGEX = /.*/
+const RESOLVE_GRAMMAR_REGEX =
+	/(function resolveGrammar\(filename\) \{)\s*const thisDirectory[^}]+\}/
+
 /**
  * Plugin that stubs out \@kitschpatrol/tokei and its native platform packages.
  * The tokei native addon is used by metascope's code-stats source, which
@@ -22,14 +27,14 @@ function nativeAddonStubPlugin(): Plugin {
 		name: 'native-addon-stub',
 		setup(pluginBuild: PluginBuild): void {
 			pluginBuild.onResolve(
-				{ filter: /^@kitschpatrol\/tokei/ },
+				{ filter: TOKEI_PACKAGE_REGEX },
 				(args: OnResolveArgs): OnResolveResult => ({
 					namespace: 'native-stub',
 					path: args.path,
 				}),
 			)
 			pluginBuild.onLoad(
-				{ filter: /.*/, namespace: 'native-stub' },
+				{ filter: MATCH_ALL_REGEX, namespace: 'native-stub' },
 				(_args: OnLoadArgs): OnLoadResult => ({
 					contents: 'export default {}; export function tokei() { return {} }',
 					loader: 'js',
@@ -108,7 +113,7 @@ function treeSitterWasmPlugin(): Plugin {
 				const bundlePath = join(outdir, 'index.js')
 				const content = await readFile(bundlePath, 'utf8')
 				const patched = content.replace(
-					/(function resolveGrammar\(filename\) \{)\s*const thisDirectory[^}]+\}/,
+					RESOLVE_GRAMMAR_REGEX,
 					'$1\n  return new URL("grammars/" + filename, import.meta.url).pathname;\n}',
 				)
 
