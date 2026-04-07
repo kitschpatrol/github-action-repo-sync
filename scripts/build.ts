@@ -14,8 +14,7 @@ import { join } from 'node:path'
 
 const TOKEI_PACKAGE_REGEX = /^@kitschpatrol\/tokei/
 const MATCH_ALL_REGEX = /.*/
-const RESOLVE_GRAMMAR_REGEX =
-	/(function resolveGrammar\(filename\) \{)\s*const thisDirectory[^}]+\}/
+const RESOLVE_GRAMMAR_REGEX = /(function resolveGrammar\(filename\) \{)[^}]+\}/
 
 /**
  * Plugin that stubs out \@kitschpatrol/tokei and its native platform packages.
