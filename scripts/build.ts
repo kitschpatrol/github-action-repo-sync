@@ -9,13 +9,11 @@ import type {
 } from 'esbuild'
 import type { Dirent } from 'node:fs'
 import { build } from 'esbuild'
-import { copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
+import { copyFile, mkdir, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 
 const TOKEI_PACKAGE_REGEX = /^@kitschpatrol\/tokei/
 const MATCH_ALL_REGEX = /.*/
-const RESOLVE_GRAMMAR_REGEX =
-	/(function resolveGrammar\(filename\) \{)\s*const thisDirectory[^}]+\}/
 
 /**
  * Plugin that stubs out \@kitschpatrol/tokei and its native platform packages.
@@ -64,15 +62,13 @@ async function findPackageDirectory(packageName: string): Promise<string> {
 }
 
 /**
- * Plugin that copies tree-sitter WASM files to the output directory and patches
- * the bundle to resolve grammar paths correctly.
+ * Plugin that copies tree-sitter WASM files to the output directory.
  *
  * web-tree-sitter.wasm goes directly in outdir (web-tree-sitter looks for it
  * relative to the script directory).
  *
- * Grammar WASMs go in outdir/grammars/ and the bundle is patched so that
- * metascope's resolveGrammar function resolves paths relative to the bundled
- * script directory rather than using its built-in "/dist/" substring heuristic.
+ * Grammar WASMs go in outdir/grammars/ — the bundle configures metascope's
+ * grammar directory via setGrammarDirectory() in src/index.ts.
  */
 function treeSitterWasmPlugin(): Plugin {
 	return {
@@ -104,24 +100,6 @@ function treeSitterWasmPlugin(): Plugin {
 						copyFile(join(metascopeGrammars, f), join(grammarsDirectory, f)),
 					),
 				)
-
-				// Patch the bundle: metascope 0.2.2's resolveGrammar uses a "/dist/"
-				// substring heuristic to find the grammars directory, but after esbuild
-				// bundles everything into dist/index.js, dirname(import.meta.url) is
-				// ".../dist" (no trailing slash) so the check fails. Replace the function
-				// body to resolve grammars relative to the script directory directly.
-				const bundlePath = join(outdir, 'index.js')
-				const content = await readFile(bundlePath, 'utf8')
-				const patched = content.replace(
-					RESOLVE_GRAMMAR_REGEX,
-					'$1\n  return new URL("grammars/" + filename, import.meta.url).pathname;\n}',
-				)
-
-				if (patched === content) {
-					throw new Error('Failed to patch resolveGrammar in bundled output')
-				}
-
-				await writeFile(bundlePath, patched)
 			})
 		},
 	}

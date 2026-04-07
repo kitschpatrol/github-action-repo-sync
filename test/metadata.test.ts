@@ -8,7 +8,11 @@ const testDirectory = path.dirname(fileURLToPath(import.meta.url))
 const fixturesDirectory = path.join(testDirectory, 'fixtures')
 
 // Helper function to set up test with fixture file
-async function testWithFixture(fixtureName: string, testName?: string): Promise<string> {
+async function testWithFixture(
+	fixtureName: string,
+	directories: string[],
+	testName?: string,
+): Promise<string> {
 	const targetFileName = fixtureName.includes('-')
 		? fixtureName.split('-')[0] + path.extname(fixtureName)
 		: fixtureName
@@ -23,23 +27,30 @@ async function testWithFixture(fixtureName: string, testName?: string): Promise<
 		path.join(tempDirectory, targetFileName),
 	)
 
+	directories.push(tempDirectory)
 	process.chdir(tempDirectory)
 	return tempDirectory
 }
 
 describe('parseMetadata', () => {
 	let originalCwd: string
+	const tempDirectories: string[] = []
 
 	beforeEach(() => {
 		originalCwd = process.cwd()
 	})
 
-	afterEach(() => {
+	afterEach(async () => {
 		process.chdir(originalCwd)
+		for (const directory of tempDirectories) {
+			await fs.rm(directory, { force: true, recursive: true })
+		}
+
+		tempDirectories.length = 0
 	})
 
 	it('should parse package.json metadata', async () => {
-		const tempDirectory = await testWithFixture('package-basic.json')
+		await testWithFixture('package-basic.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -48,12 +59,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://example.com',
 			topics: ['test', 'github-action', 'metadata'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should parse pyproject.toml metadata with project section', async () => {
-		const tempDirectory = await testWithFixture('pyproject-project-only.toml')
+		await testWithFixture('pyproject-project-only.toml', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -62,12 +71,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://python-home.com',
 			topics: ['python', 'test'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should parse pyproject.toml metadata with poetry section', async () => {
-		const tempDirectory = await testWithFixture('pyproject-poetry-only.toml')
+		await testWithFixture('pyproject-poetry-only.toml', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -76,12 +83,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://poetry-home.com',
 			topics: ['poetry', 'test'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should parse metadata.json', async () => {
-		const tempDirectory = await testWithFixture('metadata-basic.json')
+		await testWithFixture('metadata-basic.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -90,12 +95,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://json-example.com',
 			topics: ['json', 'metadata', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should parse metadata.yml', async () => {
-		const tempDirectory = await testWithFixture('metadata-basic.yml')
+		await testWithFixture('metadata-basic.yml', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -104,12 +107,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://yaml-example.com',
 			topics: ['yaml', 'metadata', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should parse metadata.yaml', async () => {
-		const tempDirectory = await testWithFixture('metadata-basic.yaml')
+		await testWithFixture('metadata-basic.yaml', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -118,12 +119,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://extended-yaml-example.com',
 			topics: ['extended-yaml', 'metadata', 'comprehensive'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should parse codemeta.json', async () => {
-		const tempDirectory = await testWithFixture('codemeta-basic.json')
+		await testWithFixture('codemeta-basic.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -132,12 +131,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://codemeta-example.com',
 			topics: ['codemeta', 'metadata', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should use codeRepository as homepage fallback in codemeta.json', async () => {
-		const tempDirectory = await testWithFixture('codemeta-coderepository-fallback.json')
+		await testWithFixture('codemeta-coderepository-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -148,12 +145,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://github.com/test/codemeta-fallback',
 			topics: ['codemeta', 'fallback', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should parse comma-delimited keywords string in codemeta.json', async () => {
-		const tempDirectory = await testWithFixture('codemeta-string-keywords.json')
+		await testWithFixture('codemeta-string-keywords.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -162,12 +157,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://codemeta-string-keywords.com',
 			topics: ['optimization', 'stochastic approximation', 'spsa'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should normalize git+ prefix and .git suffix in codemeta.json codeRepository', async () => {
-		const tempDirectory = await testWithFixture('codemeta-git-url.json')
+		await testWithFixture('codemeta-git-url.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -176,12 +169,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://github.com/test/codemeta-git-url',
 			topics: ['codemeta', 'git-url', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should normalize git+ prefix and .git suffix in package.json repository.url', async () => {
-		const tempDirectory = await testWithFixture('package-git-url.json')
+		await testWithFixture('package-git-url.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -190,12 +181,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://github.com/test/package-git-url',
 			topics: ['package', 'git-url', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should normalize git+ prefix and .git suffix in metadata.json repository', async () => {
-		const tempDirectory = await testWithFixture('metadata-git-url.json')
+		await testWithFixture('metadata-git-url.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -204,13 +193,12 @@ describe('parseMetadata', () => {
 			homepage: 'https://github.com/test/metadata-git-url',
 			topics: ['metadata', 'git-url', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should merge metadata from multiple files with priority', async () => {
 		const tempDirectory = path.join(testDirectory, 'temp-merge')
 		await fs.mkdir(tempDirectory, { recursive: true })
+		tempDirectories.push(tempDirectory)
 
 		// Copy package.json fixture
 		await fs.copyFile(
@@ -233,13 +221,12 @@ describe('parseMetadata', () => {
 			homepage: 'https://metadata-home.com',
 			topics: ['metadata-keyword'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should handle missing files gracefully', async () => {
 		const tempDirectory = path.join(testDirectory, 'temp-empty')
 		await fs.mkdir(tempDirectory, { recursive: true })
+		tempDirectories.push(tempDirectory)
 
 		process.chdir(tempDirectory)
 
@@ -250,12 +237,10 @@ describe('parseMetadata', () => {
 			homepage: '',
 			topics: [],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should handle invalid JSON gracefully', async () => {
-		const tempDirectory = await testWithFixture('package-invalid.json')
+		await testWithFixture('package-invalid.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -264,12 +249,10 @@ describe('parseMetadata', () => {
 			homepage: '',
 			topics: [],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should handle repository URL fallback in package.json', async () => {
-		const tempDirectory = await testWithFixture('package-repo-fallback.json')
+		await testWithFixture('package-repo-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -278,23 +261,19 @@ describe('parseMetadata', () => {
 			homepage: 'https://github.com/test/fallback-repo',
 			topics: ['fallback', 'test'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should handle various keyword field names', async () => {
-		const tempDirectory = await testWithFixture('metadata-keyword-variants.json')
+		await testWithFixture('metadata-keyword-variants.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
 		expect(metadata.topics).toEqual(['tag1', 'tag2'])
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	// Test metadata.json fallback scenarios
 	it('should use url as homepage fallback in metadata.json', async () => {
-		const tempDirectory = await testWithFixture('metadata-url-fallback.json')
+		await testWithFixture('metadata-url-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -303,12 +282,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://url-fallback-example.com',
 			topics: ['url-fallback', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should use repository as homepage fallback in metadata.json', async () => {
-		const tempDirectory = await testWithFixture('metadata-repository-fallback.json')
+		await testWithFixture('metadata-repository-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -317,12 +294,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://repository-fallback-example.com',
 			topics: ['repository-fallback', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should use website as homepage fallback in metadata.json', async () => {
-		const tempDirectory = await testWithFixture('metadata-website-fallback.json')
+		await testWithFixture('metadata-website-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -331,12 +306,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://website-fallback-example.com',
 			topics: ['website-fallback', 'testing'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should use tags as topics fallback in metadata.json', async () => {
-		const tempDirectory = await testWithFixture('metadata-tags-fallback.json')
+		await testWithFixture('metadata-tags-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -345,12 +318,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://tags-fallback-example.com',
 			topics: ['tag1', 'tag2', 'tags-fallback'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should use topics as final fallback in metadata.json', async () => {
-		const tempDirectory = await testWithFixture('metadata-topics-fallback.json')
+		await testWithFixture('metadata-topics-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -359,13 +330,11 @@ describe('parseMetadata', () => {
 			homepage: 'https://topics-fallback-example.com',
 			topics: ['topic1', 'topic2', 'topics-fallback'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	// Test pyproject.toml fallback scenarios
 	it('should use project.urls.repository as homepage fallback in pyproject.toml', async () => {
-		const tempDirectory = await testWithFixture('pyproject-project-urls.toml')
+		await testWithFixture('pyproject-project-urls.toml', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -374,12 +343,10 @@ describe('parseMetadata', () => {
 			homepage: 'https://project-repository-fallback.com',
 			topics: ['project', 'urls', 'fallback'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	it('should use tool.poetry fallbacks in pyproject.toml', async () => {
-		const tempDirectory = await testWithFixture('pyproject-poetry-only.toml')
+		await testWithFixture('pyproject-poetry-only.toml', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -388,13 +355,11 @@ describe('parseMetadata', () => {
 			homepage: 'https://poetry-home.com',
 			topics: ['poetry', 'test'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	// Test package.json repository.url fallback
 	it('should use repository.url as homepage fallback in package.json', async () => {
-		const tempDirectory = await testWithFixture('package-repository-fallback.json')
+		await testWithFixture('package-repository-fallback.json', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -403,13 +368,11 @@ describe('parseMetadata', () => {
 			homepage: 'https://package-repository-fallback.com',
 			topics: ['repository', 'url', 'fallback'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	// Test tree-sitter grammar parsing (Ruby gemspec)
 	it('should parse gemspec metadata', async () => {
-		const tempDirectory = await testWithFixture('gemspec-basic.gemspec')
+		await testWithFixture('gemspec-basic.gemspec', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -418,13 +381,11 @@ describe('parseMetadata', () => {
 			homepage: 'https://example.com/ruby-gem',
 			topics: [],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	// Test tree-sitter grammar parsing (Python setup.py)
 	it('should parse setup.py metadata', async () => {
-		const tempDirectory = await testWithFixture('setup-py-basic.py')
+		await testWithFixture('setup-py-basic.py', tempDirectories)
 
 		const metadata = await parseMetadata()
 
@@ -433,14 +394,13 @@ describe('parseMetadata', () => {
 			homepage: 'https://example.com/python-package',
 			topics: ['python', 'test', 'metadata'],
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 
 	// Test priority order - ensure higher priority files override lower priority ones
 	it('should respect fallback priority order across different files', async () => {
 		const tempDirectory = path.join(testDirectory, 'temp-priority-test')
 		await fs.mkdir(tempDirectory, { recursive: true })
+		tempDirectories.push(tempDirectory)
 
 		// Copy metadata.json fixture with url fallback
 		await fs.copyFile(
@@ -463,7 +423,5 @@ describe('parseMetadata', () => {
 			homepage: 'https://metadata-url.com', // Metadata.json url wins
 			topics: ['metadata-tag'], // Metadata.json tags win
 		})
-
-		await fs.rm(tempDirectory, { recursive: true })
 	})
 })

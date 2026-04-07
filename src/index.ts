@@ -1,6 +1,12 @@
 import * as core from '@actions/core'
+import { setGrammarDirectory } from 'metascope'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { updateRepository } from './github'
 import { parseMetadata } from './metadata'
+
+// Point metascope at the WASM grammars bundled alongside this script
+setGrammarDirectory(join(fileURLToPath(new URL('.', import.meta.url)), 'grammars'))
 
 async function main() {
 	try {
