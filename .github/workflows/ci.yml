@@ -39,6 +39,14 @@ jobs:
           # Disable cache for build scripts...
           # cache: 'pnpm'
 
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@e65c17d16e57e481586a6a5a0282698790062f92 # v1.300.0
+        with:
+          ruby-version: '3.3'
+
+      - name: Install Ruby gems
+        run: gem install bundler prettier_print syntax_tree syntax_tree-haml syntax_tree-rbs
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
