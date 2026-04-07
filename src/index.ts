@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
+import { setGrammarDirectory } from 'metascope'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { setGrammarDirectory } from 'metascope'
 import { updateRepository } from './github'
 import { parseMetadata } from './metadata'
 
