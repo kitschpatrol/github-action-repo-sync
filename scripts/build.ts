@@ -113,7 +113,7 @@ function treeSitterWasmPlugin(): Plugin {
 				const content = await readFile(bundlePath, 'utf8')
 				const patched = content.replace(
 					RESOLVE_GRAMMAR_REGEX,
-					'$1\n  return new URL("grammars/" + filename, import.meta.url).pathname;\n}',
+					'$1\n  return require("node:path").join(import.meta.dirname,"grammars",filename);\n}',
 				)
 
 				if (patched === content) {
