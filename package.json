@@ -24,7 +24,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "tsx scripts/build.ts",
-		"clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
+		"clean": "shx rm -f pnpm-lock.yaml && git clean -fdX -e !.claude/",
 		"fix": "ksc fix",
 		"lint": "ksc lint",
 		"test": "vitest run",
@@ -32,15 +32,16 @@
 	},
 	"devDependencies": {
 		"@actions/core": "^3.0.0",
-		"@actions/github": "^9.0.0",
-		"@kitschpatrol/shared-config": "^7.1.0",
+		"@actions/github": "^9.1.0",
+		"@kitschpatrol/shared-config": "^7.2.0",
 		"@octokit/rest": "^22.0.1",
 		"@types/node": "~24.0.15",
 		"esbuild": "^0.28.0",
 		"metascope": "^0.6.3",
+		"shx": "^0.4.0",
 		"tsx": "^4.21.0",
 		"typescript": "~5.9.3",
-		"vitest": "^4.1.2"
+		"vitest": "^4.1.4"
 	},
 	"packageManager": "pnpm@10.33.0",
 	"engines": {
