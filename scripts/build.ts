@@ -16,7 +16,7 @@ const TOKEI_PACKAGE_REGEX = /^@kitschpatrol\/tokei/
 const MATCH_ALL_REGEX = /.*/
 
 /**
- * Plugin that stubs out \@kitschpatrol/tokei and its native platform packages.
+ * Plugin that stubs out `@kitschpatrol/tokei` and its native platform packages.
  * The tokei native addon is used by metascope's code-stats source, which
  * requires platform-specific binaries that can't be bundled by esbuild.
  */
@@ -64,7 +64,7 @@ async function findPackageDirectory(packageName: string): Promise<string> {
 /**
  * Plugin that copies tree-sitter WASM files to the output directory.
  *
- * web-tree-sitter.wasm goes directly in outdir (web-tree-sitter looks for it
+ * Web-tree-sitter.wasm goes directly in outdir (web-tree-sitter looks for it
  * relative to the script directory).
  *
  * Grammar WASMs go in outdir/grammars/ — the bundle configures metascope's
@@ -75,7 +75,9 @@ function treeSitterWasmPlugin(): Plugin {
 		name: 'tree-sitter-wasm',
 		setup(pluginBuild: PluginBuild): void {
 			pluginBuild.onEnd(async (result: BuildResult): Promise<void> => {
-				if (result.errors.length > 0) return
+				if (result.errors.length > 0) {
+					return
+				}
 
 				const outdir = pluginBuild.initialOptions.outdir ?? 'dist'
 				const grammarsDirectory = join(outdir, 'grammars')

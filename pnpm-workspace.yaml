@@ -1,12 +1,3 @@
-onlyBuiltDependencies:
-  - esbuild
-  - oxc-resolver
-  - puppeteer
-  - tree-sitter
-  - tree-sitter-python
-  - tree-sitter-ruby
-  - unrs-resolver
-
 publicHoistPattern:
   - '@kitschpatrol/repo-config'
   - '@kitschpatrol/typescript-config'
@@ -18,3 +9,11 @@ publicHoistPattern:
   - '*prettier*'
   - '*remark*'
   - '*stylelint*'
+allowBuilds:
+  esbuild: true
+  oxc-resolver: true
+  puppeteer: true
+  tree-sitter: true
+  tree-sitter-python: true
+  tree-sitter-ruby: true
+  unrs-resolver: true

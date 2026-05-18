@@ -100,6 +100,7 @@ describe('GitHub Action main function', () => {
 			if (name === 'TOKEN') {
 				throw new Error('Input required and not supplied: TOKEN')
 			}
+
 			return ''
 		})
 

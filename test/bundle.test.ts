@@ -13,10 +13,10 @@ const fixturesDirectory = path.join(testDirectory, 'fixtures')
 const distributionEntry = path.resolve(testDirectory, '..', 'dist', 'index.js')
 
 /**
- * Run the dist bundle in a temp directory containing a fixture file.
- * The action logs "Found metadata: {...}" before calling the GitHub API,
- * so we can capture that output to verify tree-sitter parsing works
- * even though the API call will fail (no valid token).
+ * Run the dist bundle in a temp directory containing a fixture file. The action
+ * logs "Found metadata: {...}" before calling the GitHub API, so we can capture
+ * that output to verify tree-sitter parsing works even though the API call will
+ * fail (no valid token).
  */
 async function runDistributionWithFixture(
 	fixtureName: string,

@@ -6,7 +6,7 @@
 
 <!-- badges ({ npm: [] }) -->
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
 [![CI](https://github.com/kitschpatrol/github-action-repo-sync/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/github-action-repo-sync/actions/workflows/ci.yml)
 
 <!-- /badges -->
@@ -58,7 +58,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
 
@@ -96,7 +96,7 @@ Note that if the discovered `homepage` value is identical to the repository's Gi
 
 ## Maintainers
 
-[@kitschpatrol](https://github.com/kitschpatrol)
+[kitschpatrol](https://github.com/kitschpatrol)
 
 ## Acknowledgments
 
@@ -106,6 +106,6 @@ Thanks to [Kevin Brashears](https://github.com/kbrashears5) for the original she
 
 ## License
 
-[MIT](license.txt) © Eric Mika
+[MIT](license.txt) © [Eric Mika](https://ericmika.com)
 
 <!-- /license -->
