@@ -43,7 +43,6 @@ describe('GitHub Action main function', () => {
 
 		vi.mocked(core.getInput).mockReturnValue('test-token')
 		mockParseMetadata.mockResolvedValue(mockMetadata)
-		// eslint-disable-next-line unicorn/no-useless-undefined
 		mockUpdateRepository.mockResolvedValue(undefined)
 
 		// Import and run the main function

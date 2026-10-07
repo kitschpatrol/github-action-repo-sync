@@ -9,11 +9,23 @@ publicHoistPattern:
   - '*prettier*'
   - '*remark*'
   - '*stylelint*'
+minimumReleaseAgeExclude:
+  - '@kitschpatrol/cspell-config@8.12.1'
+  - '@kitschpatrol/eslint-config@8.12.1'
+  - '@kitschpatrol/knip-config@8.12.1'
+  - '@kitschpatrol/mdat-config@8.12.1'
+  - '@kitschpatrol/prettier-config@8.12.1'
+  - '@kitschpatrol/remark-config@8.12.1'
+  - '@kitschpatrol/repo-config@8.12.1'
+  - '@kitschpatrol/shared-config@8.12.1'
+  - '@kitschpatrol/stylelint-config@8.12.1'
+  - '@kitschpatrol/typescript-config@8.12.1'
+  - 'metascope@0.12.2'
+  - 'read-pyproject@0.4.1'
+peerDependencyRules:
+  allowedVersions:
+    # No eslint 10 release yet, but runtime-compatible (used via eslint-plugin-astro)
+    'eslint-plugin-jsx-a11y>eslint': '10'
 allowBuilds:
   esbuild: true
-  oxc-resolver: true
-  puppeteer: true
-  tree-sitter: true
-  tree-sitter-python: true
-  tree-sitter-ruby: true
   unrs-resolver: true

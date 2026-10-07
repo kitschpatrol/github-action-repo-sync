@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import type { RepoMetadata } from '../src/metadata'
+import type { RepositoryMetadata } from '../src/metadata'
 import { updateRepository } from '../src/github'
 
 // Mock the @actions/github module
@@ -40,19 +40,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should update description when different', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Old description',
 			homepage: 'https://example.com',
 			topics: ['old', 'topics'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'New description',
 			homepage: 'https://example.com',
 			topics: ['old', 'topics'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 		mockOctokit.repos.update.mockResolvedValue({})
 
 		await updateRepository(newMetadata, testToken)
@@ -68,19 +68,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should update homepage when different', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Test description',
 			homepage: 'https://old-site.com',
 			topics: ['test'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'Test description',
 			homepage: 'https://new-site.com',
 			topics: ['test'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 		mockOctokit.repos.update.mockResolvedValue({})
 
 		await updateRepository(newMetadata, testToken)
@@ -96,19 +96,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should update topics when different', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Test description',
 			homepage: 'https://example.com',
 			topics: ['old', 'topics'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'Test description',
 			homepage: 'https://example.com',
 			topics: ['new', 'topics', 'added'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 		mockOctokit.repos.replaceAllTopics.mockResolvedValue({})
 
 		await updateRepository(newMetadata, testToken)
@@ -124,19 +124,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should clear existing homepage when discovered URL matches repo URL', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Test description',
 			homepage: 'https://old-site.com',
 			topics: ['test'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'Test description',
 			homepage: 'https://github.com/test-owner/test-repo',
 			topics: ['test'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 		mockOctokit.repos.update.mockResolvedValue({})
 
 		await updateRepository(newMetadata, testToken)
@@ -149,19 +149,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should not update homepage when discovered URL matches repo URL and homepage is already empty', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Test description',
 			homepage: '',
 			topics: ['test'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'Test description',
 			homepage: 'https://github.com/test-owner/test-repo',
 			topics: ['test'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 
 		await updateRepository(newMetadata, testToken)
 
@@ -169,19 +169,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should not update when metadata is the same', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Same description',
 			homepage: 'https://same-site.com',
 			topics: ['same', 'topics'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'Same description',
 			homepage: 'https://same-site.com',
 			topics: ['same', 'topics'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 
 		await updateRepository(newMetadata, testToken)
 
@@ -190,19 +190,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should handle topics in different order as same', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Test description',
 			homepage: 'https://example.com',
 			topics: ['b', 'a', 'c'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'Test description',
 			homepage: 'https://example.com',
 			topics: ['a', 'b', 'c'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 
 		await updateRepository(newMetadata, testToken)
 
@@ -210,19 +210,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should update all fields when all are different', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Old description',
 			homepage: 'https://old-site.com',
 			topics: ['old', 'topics'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: 'New description',
 			homepage: 'https://new-site.com',
 			topics: ['new', 'topics'],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 		mockOctokit.repos.update.mockResolvedValue({})
 		mockOctokit.repos.replaceAllTopics.mockResolvedValue({})
 
@@ -247,19 +247,19 @@ describe('updateRepository', () => {
 	})
 
 	it('should clear remote homepage when local homepage is undefined', async () => {
-		const currentRepo = {
+		const currentRepository = {
 			description: 'Some description',
 			homepage: 'https://example.com',
 			topics: ['some', 'topics'],
 		}
 
-		const newMetadata: RepoMetadata = {
+		const newMetadata: RepositoryMetadata = {
 			description: undefined,
 			homepage: undefined,
 			topics: [],
 		}
 
-		mockOctokit.repos.get.mockResolvedValue({ data: currentRepo })
+		mockOctokit.repos.get.mockResolvedValue({ data: currentRepository })
 		mockOctokit.repos.update.mockResolvedValue({})
 		mockOctokit.repos.replaceAllTopics.mockResolvedValue({})
 

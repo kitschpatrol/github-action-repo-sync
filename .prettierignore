@@ -2,9 +2,13 @@
 # Also respects .gitignore
 
 # @kitschpatrol/prettier-config boilerplate
-pnpm-lock.yaml
+.claude/
+.agents/
 package-lock.json
+pnpm-lock.yaml
+skills-lock.json
 
 # Customizations
 /test/fixtures/package-invalid.json
 /dist/
+/test/fixtures/*.toml

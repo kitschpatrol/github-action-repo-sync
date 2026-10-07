@@ -1,12 +1,12 @@
 import { context } from '@actions/github'
 import { Octokit } from '@octokit/rest'
-import type { RepoMetadata } from './metadata'
+import type { RepositoryMetadata } from './metadata'
 
 /**
  * Update repository metadata on GitHub
  */
 export async function updateRepository(
-	metadata: RepoMetadata,
+	metadata: RepositoryMetadata,
 	token: string,
 	actionContext: { owner: string; repo: string } = context.repo,
 ) {
@@ -17,17 +17,16 @@ export async function updateRepository(
 	const { owner, repo } = actionContext
 	const { data } = await octokit.repos.get({ owner, repo })
 
-	// eslint-disable-next-line ts/no-unsafe-type-assertion
-	const currentRepoMetadata = data as RepoMetadata
+	const currentRepositoryMetadata = data as RepositoryMetadata
 
 	// GitHub API sometimes reports these as null...
-	currentRepoMetadata.description ??= ''
-	currentRepoMetadata.homepage ??= ''
+	currentRepositoryMetadata.description ??= ''
+	currentRepositoryMetadata.homepage ??= ''
 
 	const updates: Array<Promise<unknown>> = []
 
 	// Update description
-	if (metadata.description !== currentRepoMetadata.description) {
+	if (metadata.description !== currentRepositoryMetadata.description) {
 		console.log(`\nDescription: ${metadata.description}`)
 		console.log(`Updating description for [${owner}/${repo}]`)
 
@@ -43,11 +42,13 @@ export async function updateRepository(
 	// Update homepage
 	// Clear if it's a GitHub repo URL (redundant) or if no homepage is set locally
 	const resolvedHomepage =
-		metadata.homepage && !metadata.homepage.startsWith(`https://github.com/${owner}/${repo}`)
+		metadata.homepage !== undefined &&
+		metadata.homepage !== '' &&
+		!metadata.homepage.startsWith(`https://github.com/${owner}/${repo}`)
 			? metadata.homepage
 			: ''
 
-	if (currentRepoMetadata.homepage !== resolvedHomepage) {
+	if (currentRepositoryMetadata.homepage !== resolvedHomepage) {
 		console.log(`\nWebsite: ${resolvedHomepage}`)
 		console.log(`Updating homepage for [${owner}/${repo}]`)
 
@@ -62,7 +63,9 @@ export async function updateRepository(
 
 	// Update topics
 
-	if (metadata.topics.toSorted().join(',') !== currentRepoMetadata.topics.toSorted().join(',')) {
+	if (
+		metadata.topics.toSorted().join(',') !== currentRepositoryMetadata.topics.toSorted().join(',')
+	) {
 		console.log(`\nTopics: ${JSON.stringify(metadata.topics)}`)
 		console.log(`Updating topics for [${owner}/${repo}]`)
 

@@ -8,18 +8,11 @@ const testDirectory = path.dirname(fileURLToPath(import.meta.url))
 const fixturesDirectory = path.join(testDirectory, 'fixtures')
 
 // Helper function to set up test with fixture file
-async function testWithFixture(
-	fixtureName: string,
-	directories: string[],
-	testName?: string,
-): Promise<string> {
+async function testWithFixture(fixtureName: string, directories: string[]): Promise<string> {
 	const targetFileName = fixtureName.includes('-')
-		? fixtureName.split('-')[0] + path.extname(fixtureName)
+		? fixtureName.split('-', 1)[0] + path.extname(fixtureName)
 		: fixtureName
-	const tempDirectory = path.join(
-		testDirectory,
-		`temp-${testName ?? fixtureName.replaceAll('.', '-')}`,
-	)
+	const tempDirectory = path.join(testDirectory, `temp-${fixtureName.replaceAll('.', '-')}`)
 
 	await fs.mkdir(tempDirectory, { recursive: true })
 	await fs.copyFile(

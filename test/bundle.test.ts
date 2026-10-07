@@ -6,7 +6,9 @@ import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
-const FOUND_METADATA_REGEX = /Found metadata: (.+)/
+const FOUND_METADATA_REGEX = /Found metadata: (.+)/v
+// `execFile` returns a ChildProcess, which `promisify` intentionally discards
+// eslint-disable-next-line ts/strict-void-return
 const execFileAsync = promisify(execFile)
 const testDirectory = path.dirname(fileURLToPath(import.meta.url))
 const fixturesDirectory = path.join(testDirectory, 'fixtures')
@@ -41,7 +43,6 @@ async function runDistributionWithFixture(
 		return stdout
 	} catch (error) {
 		// The action will fail at the GitHub API call, but we still get stdout
-		// eslint-disable-next-line ts/no-unsafe-type-assertion
 		const execError = error as { stdout?: string }
 		return execError.stdout ?? ''
 	} finally {
@@ -68,8 +69,7 @@ describe('dist bundle tree-sitter grammar loading', () => {
 		const match = FOUND_METADATA_REGEX.exec(stdout)
 		expect(match).not.toBeNull()
 
-		// eslint-disable-next-line ts/no-unsafe-type-assertion
-		const metadata = JSON.parse(match![1]) as Record<string, unknown>
+		const metadata = JSON.parse(match?.[1] ?? '') as Record<string, unknown>
 		expect(metadata.description).toBe('A test Ruby gem for metadata sync')
 		expect(metadata.homepage).toBe('https://example.com/ruby-gem')
 	})
@@ -82,8 +82,7 @@ describe('dist bundle tree-sitter grammar loading', () => {
 		const match = FOUND_METADATA_REGEX.exec(stdout)
 		expect(match).not.toBeNull()
 
-		// eslint-disable-next-line ts/no-unsafe-type-assertion
-		const metadata = JSON.parse(match![1]) as Record<string, unknown>
+		const metadata = JSON.parse(match?.[1] ?? '') as Record<string, unknown>
 		expect(metadata.description).toBe('A test Python package for metadata sync')
 		expect(metadata.homepage).toBe('https://example.com/python-package')
 		expect(metadata.topics).toEqual(['python', 'test', 'metadata'])

@@ -4,9 +4,9 @@
 
 <!-- /title -->
 
-<!-- badges ({ npm: [] }) -->
+<!-- badges -->
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
 [![CI](https://github.com/kitschpatrol/github-action-repo-sync/actions/workflows/ci.yml/badge.svg)](https://github.com/kitschpatrol/github-action-repo-sync/actions/workflows/ci.yml)
 
 <!-- /badges -->
@@ -58,12 +58,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
       - name: Sync Package info to GitHub
-        uses: kitschpatrol/github-action-repo-sync@v5
+        uses: kitschpatrol/github-action-repo-sync@de990a40a3cb5c44b2db5d744f425cd496788bff # v5.0.6
         with:
           TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 ```

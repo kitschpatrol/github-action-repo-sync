@@ -7,12 +7,15 @@ import type {
 	Plugin,
 	PluginBuild,
 } from 'esbuild'
-import type { Dirent } from 'node:fs'
 import { build } from 'esbuild'
-import { copyFile, mkdir, readdir } from 'node:fs/promises'
+import { copyFile, mkdir, readdir, realpath } from 'node:fs/promises'
+import { createRequire } from 'node:module'
 import { join } from 'node:path'
 
+// Plugin filters run in Go's regexp engine, which rejects the `v` flag
+// eslint-disable-next-line require-unicode-regexp
 const TOKEI_PACKAGE_REGEX = /^@kitschpatrol\/tokei/
+// eslint-disable-next-line require-unicode-regexp
 const MATCH_ALL_REGEX = /.*/
 
 /**
@@ -42,23 +45,13 @@ function nativeAddonStubPlugin(): Plugin {
 	}
 }
 
-/** Find a package directory in the pnpm store by name. */
-async function findPackageDirectory(packageName: string): Promise<string> {
-	const pnpmPrefix = packageName.replaceAll('/', '+')
-	const entries: Dirent[] = await readdir('node_modules/.pnpm', { withFileTypes: true })
-	for (const entry of entries) {
-		if (entry.isDirectory() && entry.name.startsWith(`${pnpmPrefix}@`)) {
-			const candidate = join('node_modules/.pnpm', entry.name, 'node_modules', packageName)
-			try {
-				await readdir(candidate)
-				return candidate
-			} catch {
-				// Continue searching
-			}
-		}
-	}
-
-	throw new Error(`Could not find package: ${packageName}`)
+/**
+ * Resolve web-tree-sitter's WASM from metascope's own location, so the copied
+ * WASM always matches the web-tree-sitter JS that esbuild bundles.
+ */
+async function resolveWebTreeSitterWasm(): Promise<string> {
+	const metascopePackage = await realpath(join('node_modules', 'metascope', 'package.json'))
+	return createRequire(metascopePackage).resolve('web-tree-sitter/web-tree-sitter.wasm')
 }
 
 /**
@@ -83,12 +76,7 @@ function treeSitterWasmPlugin(): Plugin {
 				const grammarsDirectory = join(outdir, 'grammars')
 				await mkdir(grammarsDirectory, { recursive: true })
 
-				// Find web-tree-sitter.wasm (transitive dep via metascope)
-				const webTsDirectory = await findPackageDirectory('web-tree-sitter')
-				await copyFile(
-					join(webTsDirectory, 'web-tree-sitter.wasm'),
-					join(outdir, 'web-tree-sitter.wasm'),
-				)
+				await copyFile(await resolveWebTreeSitterWasm(), join(outdir, 'web-tree-sitter.wasm'))
 
 				// Copy grammar WASMs from metascope's vendored grammars
 				const metascopeGrammars = join('node_modules', 'metascope', 'dist', 'grammars')
@@ -115,6 +103,8 @@ await build({
 	},
 	bundle: true,
 	entryPoints: ['src/index.ts'],
+	// Optional peer of lognow (via metascope), only imported inside Electron
+	external: ['electron'],
 	format: 'esm',
 	outdir: 'dist',
 	platform: 'node',

@@ -1,7 +1,7 @@
 import type { SourceName } from 'metascope'
 import { getMetadata } from 'metascope'
 
-export type RepoMetadata = {
+export type RepositoryMetadata = {
 	description: string | undefined
 	homepage: string | undefined
 	topics: string[]
@@ -33,7 +33,7 @@ const sources: SourceName[] = [
 /**
  * Parse metadata from project config files
  */
-export async function parseMetadata(): Promise<RepoMetadata> {
+export async function parseMetadata(): Promise<RepositoryMetadata> {
 	const metadata = await getMetadata({
 		offline: true,
 		path: '.',
