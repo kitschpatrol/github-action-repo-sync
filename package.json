@@ -34,7 +34,7 @@
 	"devDependencies": {
 		"@actions/core": "^3.0.1",
 		"@actions/github": "^9.1.1",
-		"@kitschpatrol/shared-config": "^8.12.1",
+		"@kitschpatrol/shared-config": "^8.13.1",
 		"@octokit/rest": "^22.0.1",
 		"@types/node": "~24.0.15",
 		"bumpp": "^12.3.0",
