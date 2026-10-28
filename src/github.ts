@@ -42,11 +42,11 @@ export async function updateRepository(
 	// Update homepage
 	// Clear if it's a GitHub repo URL (redundant) or if no homepage is set locally
 	const resolvedHomepage =
-		metadata.homepage !== undefined &&
-		metadata.homepage !== '' &&
-		!metadata.homepage.startsWith(`https://github.com/${owner}/${repo}`)
-			? metadata.homepage
-			: ''
+		metadata.homepage === undefined ||
+		metadata.homepage === '' ||
+		metadata.homepage.startsWith(`https://github.com/${owner}/${repo}`)
+			? ''
+			: metadata.homepage
 
 	if (currentRepositoryMetadata.homepage !== resolvedHomepage) {
 		console.log(`\nWebsite: ${resolvedHomepage}`)
