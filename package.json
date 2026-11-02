@@ -38,7 +38,7 @@
 		"@types/node": "~24.13.6",
 		"bumpp": "^12.3.0",
 		"esbuild": "^0.28.2",
-		"metascope": "^0.13.8",
+		"metascope": "^0.13.9",
 		"shx": "^0.4.0",
 		"tsx": "^4.23.15",
 		"typescript": "~6.0.3",
