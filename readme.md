@@ -22,7 +22,7 @@
 
 This action detects metadata from common project configuration files and automatically updates the repository metadata shown in the sidebar on the repository's homepage on GitHub.
 
-It supports setting the description, topic keywords, and homepage URL from a wide variety of project metadata files formats, including [`package.json`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json), [`pyproject.toml`](https://packaging.python.org/en/latest/specifications/pyproject-toml/), [`codemeta.json`](https://codemeta.github.io/) files, etc.
+It supports setting the description, topic keywords, and homepage URL from a wide variety of project metadata file formats, including [`package.json`](https://docs.npmjs.com/cli/v11/configuring-npm/package-json), [`pyproject.toml`](https://packaging.python.org/en/latest/specifications/pyproject-toml/), [`codemeta.json`](https://codemeta.github.io/) files, etc.
 
 This lets you treat your existing metadata as a source of truth for GitHub.
 
