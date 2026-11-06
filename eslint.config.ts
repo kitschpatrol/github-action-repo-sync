@@ -1,5 +1,5 @@
 import { eslintConfig } from '@kitschpatrol/eslint-config'
 
 export default eslintConfig({
-	ignores: ['test/fixtures/package-invalid.json'],
+	ignores: ['test/fixtures/package-invalid.json', '**/changelog.md'],
 })

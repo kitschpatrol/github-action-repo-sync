@@ -27,12 +27,13 @@
 		"clean-deep": "shx rm -f pnpm-lock.yaml && git clean -fdX",
 		"fix": "ksc fix",
 		"lint": "ksc lint",
-		"release": "pnpm run build && bumpp --commit 'Release: %s' --all && ./scripts/sync-major-tag.sh",
+		"release": "pnpm run build && bumpp --commit 'Release: %s' --all --execute 'chagent' && ./scripts/sync-major-tag.sh",
 		"test": "vitest run"
 	},
 	"devDependencies": {
 		"@actions/core": "^3.0.1",
 		"@actions/github": "^9.1.1",
+		"@kitschpatrol/chagent": "0.4.0",
 		"@kitschpatrol/shared-config": "^8.14.0",
 		"@octokit/rest": "^22.0.1",
 		"@types/node": "~24.13.6",
